@@ -5,4 +5,6 @@
     <string name="settings_tab">Settings</string>
     <string name="word_of_the_day">Word of the Day</string>
     <string name="progress">Progress</string>
+    <string name="pronunciation_content_description">Play an audio clip of how this word is pronounced.</string>
+    <string name="floating_action_button_content_description">Choose a language level to study.</string>
 </resources>
