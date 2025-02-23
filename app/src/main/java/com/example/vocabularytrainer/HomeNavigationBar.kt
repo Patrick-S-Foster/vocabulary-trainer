@@ -1,12 +1,12 @@
 package com.example.vocabularytrainer
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Book
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.outlined.Book
+import androidx.compose.material.icons.filled.Translate
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -35,8 +35,9 @@ fun HomeNavigationBar(
         stringResource(R.string.dictionary_tab),
         stringResource(R.string.settings_tab)
     )
-    val selectedIcons = listOf(Icons.Filled.Home, Icons.Filled.Book, Icons.Filled.Settings)
-    val unselectedIcons = listOf(Icons.Outlined.Home, Icons.Outlined.Book, Icons.Outlined.Settings)
+    val selectedIcons = listOf(Icons.Filled.Home, Icons.Filled.Translate, Icons.Filled.Settings)
+    val unselectedIcons =
+        listOf(Icons.Outlined.Home, Icons.Outlined.Translate, Icons.Outlined.Settings)
 
     NavigationBar {
         tabs.forEachIndexed { index, tab ->
