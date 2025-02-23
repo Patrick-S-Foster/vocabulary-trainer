@@ -2,4 +2,9 @@
 <resources>
     <dimen name="language_progress_indicator_stroke_width">6dp</dimen>
     <dimen name="language_progress_indicator_gap_size">25dp</dimen>
+    <dimen name="word_card_border_width">1dp</dimen>
+    <dimen name="word_card_horizontal_padding">15dp</dimen>
+    <dimen name="word_card_vertical_padding">15dp</dimen>
+    <dimen name="word_card_language_level_padding">15dp</dimen>
+    <dimen name="word_card_word_phonetic_spacing">5dp</dimen>
 </resources>
