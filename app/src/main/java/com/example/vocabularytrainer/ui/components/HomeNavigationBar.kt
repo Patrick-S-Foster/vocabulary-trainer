@@ -1,4 +1,4 @@
-package com.example.vocabularytrainer
+package com.example.vocabularytrainer.ui.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -18,6 +18,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.vocabularytrainer.R
 
 private const val HomeIndex = 0
 private const val DictionaryIndex = 1

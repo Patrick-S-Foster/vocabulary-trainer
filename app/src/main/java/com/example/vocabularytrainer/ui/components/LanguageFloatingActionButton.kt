@@ -1,4 +1,4 @@
-package com.example.vocabularytrainer
+package com.example.vocabularytrainer.ui.components
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Box
@@ -22,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
+import com.example.vocabularytrainer.R
 import kotlin.math.cos
 import kotlin.math.sin
 

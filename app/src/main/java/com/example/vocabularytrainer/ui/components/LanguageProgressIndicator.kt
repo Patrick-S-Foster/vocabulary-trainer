@@ -1,4 +1,4 @@
-package com.example.vocabularytrainer
+package com.example.vocabularytrainer.ui.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.vocabularytrainer.R
 
 @Composable
 fun LanguageProgressIndicator(languageLevel: LanguageLevel, completedCount: Int, totalCount: Int) {
