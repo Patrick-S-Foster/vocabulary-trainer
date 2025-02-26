@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import com.example.vocabularytrainer.R
+import com.example.vocabularytrainer.service.db.LanguageLevel
 import kotlin.math.cos
 import kotlin.math.sin
 

@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.vocabularytrainer.R
+import com.example.vocabularytrainer.service.db.LanguageLevel
 
 @Composable
 fun LanguageProgressIndicator(languageLevel: LanguageLevel, completedCount: Int, totalCount: Int) {
