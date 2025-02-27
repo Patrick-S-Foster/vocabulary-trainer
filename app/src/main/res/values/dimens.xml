@@ -8,4 +8,10 @@
     <dimen name="word_card_language_level_padding">15dp</dimen>
     <dimen name="word_card_word_phonetic_spacing">5dp</dimen>
     <dimen name="language_floating_action_button_expanded_radius">150dp</dimen>
+    <dimen name="titled_content_horizontal_padding">12dp</dimen>
+    <dimen name="titled_content_title_spacing">8dp</dimen>
+    <dimen name="titled_content_divider_thickness">2dp</dimen>
+    <dimen name="titled_content_content_spacing">16dp</dimen>
+    <dimen name="home_content_spacing">48dp</dimen>
+    <dimen name="home_content_indicators_spacing">36dp</dimen>
 </resources>
