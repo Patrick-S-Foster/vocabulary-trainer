@@ -17,14 +17,20 @@ import com.example.vocabularytrainer.R
 import com.example.vocabularytrainer.service.db.LanguageLevel
 
 @Composable
-fun LanguageProgressIndicator(languageLevel: LanguageLevel, completedCount: Int, totalCount: Int) {
+fun LanguageProgressIndicator(
+    modifier: Modifier,
+    languageLevel: LanguageLevel,
+    completedCount: Int,
+    totalCount: Int
+) {
     val progress = completedCount.toFloat() / totalCount.toFloat();
 
-    Box {
+    Box(modifier = modifier) {
         CircularProgressIndicator(
             modifier = Modifier
                 .aspectRatio(1F)
-                .fillMaxSize(),
+                .fillMaxSize()
+                .align(Alignment.Center),
             progress = { progress },
             strokeWidth = dimensionResource(R.dimen.language_progress_indicator_stroke_width),
             gapSize = dimensionResource(R.dimen.language_progress_indicator_gap_size),
@@ -49,5 +55,5 @@ fun LanguageProgressIndicator(languageLevel: LanguageLevel, completedCount: Int,
 @Preview(widthDp = 125, heightDp = 125)
 @Composable
 fun LanguageProgressIndicatorPreview() {
-    LanguageProgressIndicator(LanguageLevel.B1, 123, 456)
+    LanguageProgressIndicator(Modifier, LanguageLevel.B1, 123, 456)
 }
