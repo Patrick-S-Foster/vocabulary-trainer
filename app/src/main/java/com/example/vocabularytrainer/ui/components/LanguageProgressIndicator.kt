@@ -23,7 +23,7 @@ fun LanguageProgressIndicator(
     completedCount: Int,
     totalCount: Int
 ) {
-    val progress = completedCount.toFloat() / totalCount.toFloat();
+    val progress = if (totalCount == 0) 0F else completedCount.toFloat() / totalCount.toFloat()
 
     Box(modifier = modifier) {
         CircularProgressIndicator(
