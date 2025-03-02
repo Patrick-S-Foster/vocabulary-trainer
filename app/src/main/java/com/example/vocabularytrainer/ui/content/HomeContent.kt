@@ -1,14 +1,12 @@
 package com.example.vocabularytrainer.ui.content
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.GridItemSpan
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,49 +24,74 @@ import java.util.EnumMap
 @Composable
 fun HomeContent(
     modifier: Modifier,
+    contentPadding: PaddingValues,
     wordOfTheDay: Word?,
     languageLevelProgress: Map<LanguageLevel, Pair<Int, Int>>
 ) {
-    Column(
+    LazyColumn(
         modifier = modifier,
+        contentPadding = contentPadding,
         verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.content_padding_vertical))
     ) {
-        TitledComposable(stringResource(R.string.word_of_the_day)) {
-            WordCard(
-                languageLevel = if (wordOfTheDay != null) LanguageLevel.valueOf(wordOfTheDay.category) else null,
-                word = wordOfTheDay?.word ?: "",
-                phonetic = wordOfTheDay?.phoneticText ?: "",
-                pronunciationUrl = wordOfTheDay?.phoneticAudioUrl
-            )
+        item {
+            TitledComposable(stringResource(R.string.word_of_the_day)) {
+                WordCard(
+                    languageLevel = if (wordOfTheDay != null) LanguageLevel.valueOf(wordOfTheDay.category) else null,
+                    word = wordOfTheDay?.word ?: "",
+                    phonetic = wordOfTheDay?.phoneticText ?: "",
+                    pronunciationUrl = wordOfTheDay?.phoneticAudioUrl
+                )
+            }
         }
-
-        TitledComposable(stringResource(R.string.progress)) {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                horizontalArrangement = Arrangement.Center,
-                verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.home_content_indicators_spacing))
-            ) {
-                items(
-                    LanguageLevel.entries.take(LanguageLevel.entries.size - 1).toList()
-                ) { languageLevel ->
-                    LanguageProgressIndicator(
-                        Modifier.size(dimensionResource(R.dimen.language_progress_indicator_size)),
-                        languageLevel,
-                        languageLevelProgress[languageLevel]?.first ?: 0,
-                        languageLevelProgress[languageLevel]?.second ?: 0
-                    )
-                }
-                item(span = { GridItemSpan(2) }) {
-                    Box(
-                        modifier = Modifier.padding(bottom = dimensionResource(R.dimen.home_content_indicators_spacing))
+        item {
+            TitledComposable(stringResource(R.string.progress)) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.home_content_indicators_spacing))
+                ) {
+                    Row(
+                        modifier = Modifier.align(Alignment.CenterHorizontally),
+                        horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.home_content_indicators_spacing))
                     ) {
+                        Column(verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.home_content_indicators_spacing))) {
+                            LanguageProgressIndicator(
+                                modifier = Modifier.size(dimensionResource(R.dimen.language_progress_indicator_size)),
+                                languageLevel = LanguageLevel.A1,
+                                completedCount = languageLevelProgress[LanguageLevel.A1]?.first
+                                    ?: 0,
+                                totalCount = languageLevelProgress[LanguageLevel.A1]?.second ?: 0
+                            )
+                            LanguageProgressIndicator(
+                                modifier = Modifier.size(dimensionResource(R.dimen.language_progress_indicator_size)),
+                                languageLevel = LanguageLevel.B1,
+                                completedCount = languageLevelProgress[LanguageLevel.B1]?.first
+                                    ?: 0,
+                                totalCount = languageLevelProgress[LanguageLevel.B1]?.second ?: 0
+                            )
+                        }
+                        Column(verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.home_content_indicators_spacing))) {
+                            LanguageProgressIndicator(
+                                modifier = Modifier.size(dimensionResource(R.dimen.language_progress_indicator_size)),
+                                languageLevel = LanguageLevel.A2,
+                                completedCount = languageLevelProgress[LanguageLevel.A2]?.first
+                                    ?: 0,
+                                totalCount = languageLevelProgress[LanguageLevel.A2]?.second ?: 0
+                            )
+                            LanguageProgressIndicator(
+                                modifier = Modifier.size(dimensionResource(R.dimen.language_progress_indicator_size)),
+                                languageLevel = LanguageLevel.B2,
+                                completedCount = languageLevelProgress[LanguageLevel.B2]?.first
+                                    ?: 0,
+                                totalCount = languageLevelProgress[LanguageLevel.B2]?.second ?: 0
+                            )
+                        }
+                    }
+                    Row(modifier = Modifier.align(Alignment.CenterHorizontally)) {
                         LanguageProgressIndicator(
-                            Modifier
-                                .size(dimensionResource(R.dimen.language_progress_indicator_size))
-                                .align(Alignment.Center),
-                            LanguageLevel.entries.last(),
-                            languageLevelProgress[LanguageLevel.entries.last()]?.first ?: 0,
-                            languageLevelProgress[LanguageLevel.entries.last()]?.second ?: 0
+                            modifier = Modifier.size(dimensionResource(R.dimen.language_progress_indicator_size)),
+                            languageLevel = LanguageLevel.C1,
+                            completedCount = languageLevelProgress[LanguageLevel.C1]?.first ?: 0,
+                            totalCount = languageLevelProgress[LanguageLevel.C1]?.second ?: 0
                         )
                     }
                 }
@@ -80,5 +103,5 @@ fun HomeContent(
 @Preview(showBackground = true)
 @Composable
 fun HomeContentPreview() {
-    HomeContent(Modifier, null, EnumMap(LanguageLevel::class.java))
+    HomeContent(Modifier, PaddingValues.Absolute(), null, EnumMap(LanguageLevel::class.java))
 }
