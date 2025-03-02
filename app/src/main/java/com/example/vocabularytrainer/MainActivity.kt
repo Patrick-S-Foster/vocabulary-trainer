@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.getValue
@@ -74,8 +74,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             VocabularyTrainerTheme {
                 Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    topBar = { CenterAlignedTopBar(stringResource(R.string.app_name)) },
+                    topBar = {
+                        CenterAlignedTopBar(stringResource(R.string.app_name))
+                    },
                     bottomBar = {
                         HomeNavigationBar(
                             onNavigateHome = {},
@@ -90,13 +91,11 @@ class MainActivity : ComponentActivity() {
                     }
                 ) { innerPadding ->
                     HomeContent(
-                        modifier = Modifier
-                            .padding(innerPadding)
-                            .padding(
-                                start = dimensionResource(R.dimen.content_padding_horizontal),
-                                end = dimensionResource(R.dimen.content_padding_horizontal),
-                                top = dimensionResource(R.dimen.content_padding_vertical)
-                            ),
+                        modifier = Modifier.padding(innerPadding),
+                        contentPadding = PaddingValues(
+                            horizontal = dimensionResource(R.dimen.content_padding_horizontal),
+                            vertical = dimensionResource(R.dimen.content_padding_vertical)
+                        ),
                         languageLevelProgress = map,
                         wordOfTheDay = wordOfTheDay
                     )
