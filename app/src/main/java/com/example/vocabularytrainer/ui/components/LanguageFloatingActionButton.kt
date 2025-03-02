@@ -2,8 +2,10 @@ package com.example.vocabularytrainer.ui.components
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.MenuBook
 import androidx.compose.material.icons.filled.Close
@@ -18,6 +20,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,7 +39,12 @@ fun LanguageFloatingActionButton(
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
 
-    Box(modifier = Modifier.navigationBarsPadding()) {
+    Box(
+        modifier = Modifier.padding(
+            end = WindowInsets.systemBars.asPaddingValues()
+                .calculateRightPadding(LocalLayoutDirection.current)
+        )
+    ) {
         for ((index, languageLevel) in LanguageLevel.entries.withIndex()) {
             val angle = Math.toRadians(index * 90.0 / (LanguageLevel.entries.size - 1))
 
