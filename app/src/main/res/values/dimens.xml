@@ -16,4 +16,8 @@
     <dimen name="home_content_indicators_spacing">36dp</dimen>
     <dimen name="content_padding_vertical">36dp</dimen>
     <dimen name="content_padding_horizontal">24dp</dimen>
+    <dimen name="settings_item_spacing">24dp</dimen>
+    <dimen name="settings_sub_item_spacing">12dp</dimen>
+    <dimen name="settings_sub_item_padding">42dp</dimen>
+    <dimen name="settings_radio_button_padding">13dp</dimen>
 </resources>
