@@ -165,10 +165,12 @@ class MainActivity : ComponentActivity() {
                             onNavigateSettings = { displayedContent = DisplayedContent.Settings })
                     },
                     floatingActionButton = {
-                        LanguageFloatingActionButton(
-                            onExpanded = {},
-                            onClosed = {},
-                            onClick = {})
+                        if (displayedContent == DisplayedContent.Home || displayedContent == DisplayedContent.Dictionary) {
+                            LanguageFloatingActionButton(
+                                onExpanded = {},
+                                onClosed = {},
+                                onClick = {})
+                        }
                     }
                 ) { innerPadding ->
                     when (displayedContent) {
@@ -197,7 +199,11 @@ class MainActivity : ComponentActivity() {
                                 soundEffectsEnabled = rememberSaveable { soundEffectsEnabled },
                                 dailyReminderEnabled = rememberSaveable { dailyReminderEnabled },
                                 themeState = rememberSaveable { themeState }
-                            )
+                            ) {
+                                lifecycleScope.launch {
+                                    wordDao.resetProgress()
+                                }
+                            }
                         }
                     }
                 }

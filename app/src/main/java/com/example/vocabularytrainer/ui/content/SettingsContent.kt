@@ -4,17 +4,20 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
@@ -41,7 +44,8 @@ fun SettingsContent(
     contentPadding: PaddingValues,
     soundEffectsEnabled: MutableState<Boolean>,
     dailyReminderEnabled: MutableState<Boolean>,
-    themeState: MutableState<Int>
+    themeState: MutableState<Int>,
+    onResetProgress: () -> Unit
 ) {
     val switchItems = listOf(
         Pair(stringResource(R.string.settings_sound_effects), soundEffectsEnabled),
@@ -56,32 +60,34 @@ fun SettingsContent(
     LazyColumn(
         modifier = modifier.fillMaxSize(),
         contentPadding = contentPadding,
-        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.settings_item_spacing))
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
-        items(switchItems) { switchItem ->
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(text = switchItem.first, style = MaterialTheme.typography.titleLarge)
-                Switch(
-                    checked = switchItem.second.value,
-                    onCheckedChange = { value ->
-                        switchItem.second.value = value
-                    },
-                    thumbContent = {
-                        Icon(
-                            imageVector = if (switchItem.second.value) Icons.Filled.Check else Icons.Filled.Close,
-                            contentDescription = null,
-                            modifier = Modifier.size(SwitchDefaults.IconSize)
+        item {
+            Column(verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.settings_item_spacing))) {
+                switchItems.forEach { switchItem ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(text = switchItem.first, style = MaterialTheme.typography.titleLarge)
+                        Switch(
+                            checked = switchItem.second.value,
+                            onCheckedChange = { value ->
+                                switchItem.second.value = value
+                            },
+                            thumbContent = {
+                                Icon(
+                                    imageVector = if (switchItem.second.value) Icons.Filled.Check else Icons.Filled.Close,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(SwitchDefaults.IconSize)
+                                )
+                            }
                         )
                     }
-                )
+                }
             }
-        }
 
-        item {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -120,6 +126,25 @@ fun SettingsContent(
                 }
             }
         }
+
+        item {
+            Spacer(modifier = Modifier.height(dimensionResource(R.dimen.settings_item_spacing)))
+        }
+
+        item {
+            Button(
+                onClick = onResetProgress,
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonColors(
+                    MaterialTheme.colorScheme.error,
+                    MaterialTheme.colorScheme.onError,
+                    MaterialTheme.colorScheme.errorContainer,
+                    MaterialTheme.colorScheme.onErrorContainer
+                )
+            ) {
+                Text(text = stringResource(R.string.settings_reset_progress))
+            }
+        }
     }
 }
 
@@ -131,6 +156,6 @@ fun SettingsContentPreview() {
         PaddingValues(),
         rememberSaveable { mutableStateOf(false) },
         rememberSaveable { mutableStateOf(false) },
-        rememberSaveable { mutableIntStateOf(ThemeState.AUTO) }
-    )
+        rememberSaveable { mutableIntStateOf(ThemeState.AUTO) },
+    ) {}
 }

@@ -1,7 +1,6 @@
 package com.example.vocabularytrainer.service.db
 
 import androidx.room.Dao
-import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 
@@ -22,8 +21,8 @@ interface WordDao {
     @Query("SELECT * FROM Word WHERE word_of_the_day_date=:date LIMIT 1")
     suspend fun getWordOfTheDay(date: String): Word?
 
-    @Insert
-    suspend fun insertAll(vararg words: Word)
+    @Query("UPDATE Word Set study_state = 0")
+    suspend fun resetProgress(): Unit
 
     @Update
     suspend fun updateAll(vararg words: Word)

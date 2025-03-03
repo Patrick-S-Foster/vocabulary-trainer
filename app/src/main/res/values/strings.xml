@@ -14,4 +14,5 @@
     <string name="settings_theme_auto">Auto (System)</string>
     <string name="settings_theme_light">Light</string>
     <string name="settings_theme_dark">Dark</string>
+    <string name="settings_reset_progress">Reset Progress</string>
 </resources>
