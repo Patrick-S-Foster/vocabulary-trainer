@@ -199,7 +199,11 @@ class MainActivity : ComponentActivity() {
                                 soundEffectsEnabled = rememberSaveable { soundEffectsEnabled },
                                 dailyReminderEnabled = rememberSaveable { dailyReminderEnabled },
                                 themeState = rememberSaveable { themeState }
-                            )
+                            ) {
+                                lifecycleScope.launch {
+                                    wordDao.resetProgress()
+                                }
+                            }
                         }
                     }
                 }
