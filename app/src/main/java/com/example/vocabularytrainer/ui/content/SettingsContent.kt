@@ -90,6 +90,7 @@ fun SettingsContent(
 
             Column(
                 modifier = Modifier
+                    .padding(top = dimensionResource(R.dimen.settings_item_spacing))
                     .fillMaxWidth()
                     .selectableGroup(),
                 verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.settings_sub_item_spacing))
