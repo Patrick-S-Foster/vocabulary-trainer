@@ -42,7 +42,6 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DictionaryContent(
-    modifier: Modifier,
     wordDao: WordDao,
     lifecycleScope: LifecycleCoroutineScope
 ) {
@@ -60,9 +59,7 @@ fun DictionaryContent(
         }
     }
 
-    Box(modifier = modifier
-        .fillMaxSize()
-        .semantics { isTraversalGroup = true }) {
+    Box(modifier = Modifier.fillMaxSize().semantics { isTraversalGroup = true }) {
 
         SearchBar(
             modifier = Modifier
@@ -99,8 +96,7 @@ fun DictionaryContent(
                                     if (text.isNotEmpty()) {
                                         text = ""
                                         words.clear()
-                                    }
-                                    else {
+                                    } else {
                                         expanded = false
                                     }
                                 }

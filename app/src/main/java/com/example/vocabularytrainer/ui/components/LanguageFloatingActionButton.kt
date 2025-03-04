@@ -14,10 +14,10 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -33,12 +33,9 @@ import kotlin.math.sin
 
 @Composable
 fun LanguageFloatingActionButton(
-    onExpanded: (close: () -> Unit) -> Unit,
-    onClosed: () -> Unit,
+    expanded: MutableState<Boolean>,
     onClick: (languageLevel: LanguageLevel) -> Unit
 ) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
-
     Box(
         modifier = Modifier.padding(
             end = WindowInsets.systemBars.asPaddingValues()
@@ -49,12 +46,12 @@ fun LanguageFloatingActionButton(
             val angle = Math.toRadians(index * 90.0 / (LanguageLevel.entries.size - 1))
 
             val paddingEnd by animateDpAsState(
-                if (expanded) cos(angle) * dimensionResource(
+                if (expanded.value) cos(angle) * dimensionResource(
                     R.dimen.language_floating_action_button_expanded_radius
                 ) else 0.dp
             )
             val paddingBottom by animateDpAsState(
-                if (expanded) sin(angle) * dimensionResource(
+                if (expanded.value) sin(angle) * dimensionResource(
                     R.dimen.language_floating_action_button_expanded_radius
                 ) else 0.dp
             )
@@ -72,17 +69,12 @@ fun LanguageFloatingActionButton(
             }
         }
 
-        FloatingActionButton(modifier = Modifier.align(Alignment.BottomEnd), onClick = {
-            expanded = !expanded
-
-            if (expanded) {
-                onExpanded { expanded != expanded }
-            } else {
-                onClosed()
-            }
-        }) {
+        FloatingActionButton(
+            modifier = Modifier.align(Alignment.BottomEnd),
+            onClick = { expanded.value = !expanded.value }
+        ) {
             Icon(
-                if (expanded) Icons.Filled.Close else Icons.AutoMirrored.Outlined.MenuBook,
+                if (expanded.value) Icons.Filled.Close else Icons.AutoMirrored.Outlined.MenuBook,
                 stringResource(R.string.floating_action_button_content_description)
             )
         }
@@ -92,5 +84,5 @@ fun LanguageFloatingActionButton(
 @Preview
 @Composable
 fun LanguageFloatingActionButtonPreview() {
-    LanguageFloatingActionButton({}, {}, {})
+    LanguageFloatingActionButton(rememberSaveable { mutableStateOf(false) }) {}
 }

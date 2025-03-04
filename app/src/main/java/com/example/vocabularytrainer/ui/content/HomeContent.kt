@@ -23,13 +23,12 @@ import java.util.EnumMap
 
 @Composable
 fun HomeContent(
-    modifier: Modifier,
     contentPadding: PaddingValues,
     wordOfTheDay: Word?,
     languageLevelProgress: Map<LanguageLevel, Pair<Int, Int>>
 ) {
     LazyColumn(
-        modifier = modifier,
+        modifier = Modifier.fillMaxSize(),
         contentPadding = contentPadding,
         verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.content_padding_vertical))
     ) {
@@ -103,5 +102,5 @@ fun HomeContent(
 @Preview(showBackground = true)
 @Composable
 fun HomeContentPreview() {
-    HomeContent(Modifier, PaddingValues.Absolute(), null, EnumMap(LanguageLevel::class.java))
+    HomeContent(PaddingValues.Absolute(), null, EnumMap(LanguageLevel::class.java))
 }

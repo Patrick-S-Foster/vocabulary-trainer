@@ -40,7 +40,6 @@ import com.example.vocabularytrainer.service.settings.ThemeState
 
 @Composable
 fun SettingsContent(
-    modifier: Modifier,
     contentPadding: PaddingValues,
     soundEffectsEnabled: MutableState<Boolean>,
     dailyReminderEnabled: MutableState<Boolean>,
@@ -58,7 +57,7 @@ fun SettingsContent(
     )
 
     LazyColumn(
-        modifier = modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         contentPadding = contentPadding,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
@@ -153,7 +152,6 @@ fun SettingsContent(
 @Composable
 fun SettingsContentPreview() {
     SettingsContent(
-        Modifier,
         PaddingValues(),
         rememberSaveable { mutableStateOf(false) },
         rememberSaveable { mutableStateOf(false) },
