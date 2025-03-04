@@ -5,8 +5,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.updateTransition
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.LaunchedEffect
@@ -17,6 +22,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.datastore.core.DataStore
@@ -152,6 +159,12 @@ class MainActivity : ComponentActivity() {
                 darkTheme = themeState.intValue == ThemeState.DARK || themeState.intValue == ThemeState.AUTO && isSystemInDarkTheme()
             ) {
                 var displayedContent by rememberSaveable { mutableStateOf(DisplayedContent.Home) }
+                val fabExpanded = rememberSaveable { mutableStateOf(false) }
+
+                val overlayTransition = updateTransition(targetState = fabExpanded.value)
+                val overlayOpacity by overlayTransition.animateFloat {
+                    if (it) 1.0F else 0.0F
+                }
 
                 Scaffold(
                     topBar = {
@@ -159,56 +172,81 @@ class MainActivity : ComponentActivity() {
                     },
                     bottomBar = {
                         HomeNavigationBar(
-                            onNavigateHome = { displayedContent = DisplayedContent.Home },
+                            onNavigateHome = {
+                                displayedContent = DisplayedContent.Home
+                                fabExpanded.value = false
+                            },
                             onNavigateDictionary = {
                                 displayedContent = DisplayedContent.Dictionary
+                                fabExpanded.value = false
                             },
-                            onNavigateSettings = { displayedContent = DisplayedContent.Settings })
+                            onNavigateSettings = {
+
+                                displayedContent = DisplayedContent.Settings
+                                fabExpanded.value = false
+                            })
                     },
                     floatingActionButton = {
                         if (displayedContent == DisplayedContent.Home || displayedContent == DisplayedContent.Dictionary) {
                             LanguageFloatingActionButton(
-                                onExpanded = {},
-                                onClosed = {},
+                                expanded = fabExpanded,
                                 onClick = {})
                         }
                     }
                 ) { innerPadding ->
-                    when (displayedContent) {
-                        DisplayedContent.Home -> {
-                            HomeContent(
-                                modifier = Modifier.padding(innerPadding),
-                                contentPadding = PaddingValues(
-                                    horizontal = dimensionResource(R.dimen.content_padding_horizontal),
-                                    vertical = dimensionResource(R.dimen.content_padding_vertical)
-                                ),
-                                languageLevelProgress = map,
-                                wordOfTheDay = wordOfTheDay
-                            )
-                        }
+                    Box(
+                        modifier = Modifier
+                            .padding(innerPadding)
+                            .fillMaxSize()
+                    ) {
+                        when (displayedContent) {
+                            DisplayedContent.Home -> {
+                                HomeContent(
+                                    contentPadding = PaddingValues(
+                                        horizontal = dimensionResource(R.dimen.content_padding_horizontal),
+                                        vertical = dimensionResource(R.dimen.content_padding_vertical)
+                                    ),
+                                    languageLevelProgress = map,
+                                    wordOfTheDay = wordOfTheDay
+                                )
+                            }
 
-                        DisplayedContent.Dictionary -> {
-                            DictionaryContent(
-                                modifier = Modifier.padding(innerPadding),
-                                wordDao = wordDao,
-                                lifecycleScope = lifecycleScope
-                            )
-                        }
+                            DisplayedContent.Dictionary -> {
+                                DictionaryContent(
+                                    wordDao = wordDao,
+                                    lifecycleScope = lifecycleScope
+                                )
+                            }
 
-                        else -> {
-                            SettingsContent(
-                                modifier = Modifier.padding(innerPadding),
-                                contentPadding = PaddingValues(
-                                    horizontal = dimensionResource(R.dimen.content_padding_horizontal),
-                                    vertical = dimensionResource(R.dimen.content_padding_vertical)
-                                ),
-                                soundEffectsEnabled = rememberSaveable { soundEffectsEnabled },
-                                dailyReminderEnabled = rememberSaveable { dailyReminderEnabled },
-                                themeState = rememberSaveable { themeState }
-                            ) {
-                                lifecycleScope.launch {
-                                    wordDao.resetProgress()
+                            else -> {
+                                SettingsContent(
+                                    contentPadding = PaddingValues(
+                                        horizontal = dimensionResource(R.dimen.content_padding_horizontal),
+                                        vertical = dimensionResource(R.dimen.content_padding_vertical)
+                                    ),
+                                    soundEffectsEnabled = rememberSaveable { soundEffectsEnabled },
+                                    dailyReminderEnabled = rememberSaveable { dailyReminderEnabled },
+                                    themeState = rememberSaveable { themeState }
+                                ) {
+                                    lifecycleScope.launch {
+                                        wordDao.resetProgress()
+                                    }
                                 }
+                            }
+                        }
+
+                        val backgroundOverlayColor = colorResource(R.color.background_overlay)
+
+                        if (fabExpanded.value || overlayOpacity > 0.0F) {
+                            Canvas(modifier = Modifier
+                                .fillMaxSize()
+                                .pointerInput(true) {
+                                    fabExpanded.value = false
+                                }) {
+                                drawRect(
+                                    color = backgroundOverlayColor,
+                                    alpha = overlayOpacity
+                                )
                             }
                         }
                     }
