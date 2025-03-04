@@ -22,7 +22,10 @@ interface WordDao {
     suspend fun getWordOfTheDay(date: String): Word?
 
     @Query("UPDATE Word Set study_state = 0")
-    suspend fun resetProgress(): Unit
+    suspend fun resetProgress()
+
+    @Query("SELECT * FROM Word WHERE word LIKE :searchString || '%' ORDER BY word")
+    suspend fun searchWords(searchString: String) : List<Word>
 
     @Update
     suspend fun updateAll(vararg words: Word)

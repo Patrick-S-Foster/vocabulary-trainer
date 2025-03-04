@@ -35,6 +35,7 @@ import com.example.vocabularytrainer.service.settings.ThemeState
 import com.example.vocabularytrainer.ui.components.CenterAlignedTopBar
 import com.example.vocabularytrainer.ui.components.HomeNavigationBar
 import com.example.vocabularytrainer.ui.components.LanguageFloatingActionButton
+import com.example.vocabularytrainer.ui.content.DictionaryContent
 import com.example.vocabularytrainer.ui.content.HomeContent
 import com.example.vocabularytrainer.ui.content.SettingsContent
 import com.example.vocabularytrainer.ui.theme.VocabularyTrainerTheme
@@ -187,11 +188,16 @@ class MainActivity : ComponentActivity() {
                         }
 
                         DisplayedContent.Dictionary -> {
-                            // TODO: Dictionary content
+                            DictionaryContent(
+                                modifier = Modifier.padding(innerPadding),
+                                wordDao = wordDao,
+                                lifecycleScope = lifecycleScope
+                            )
                         }
 
                         else -> {
-                            SettingsContent(modifier = Modifier.padding(innerPadding),
+                            SettingsContent(
+                                modifier = Modifier.padding(innerPadding),
                                 contentPadding = PaddingValues(
                                     horizontal = dimensionResource(R.dimen.content_padding_horizontal),
                                     vertical = dimensionResource(R.dimen.content_padding_vertical)
