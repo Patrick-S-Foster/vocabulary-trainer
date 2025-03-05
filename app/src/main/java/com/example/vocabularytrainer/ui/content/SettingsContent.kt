@@ -25,30 +25,28 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.LifecycleCoroutineScope
 import com.example.vocabularytrainer.R
+import com.example.vocabularytrainer.service.db.WordDao
+import com.example.vocabularytrainer.service.settings.Settings
 import com.example.vocabularytrainer.service.settings.ThemeState
+import kotlinx.coroutines.launch
 
 @Composable
 fun SettingsContent(
     contentPadding: PaddingValues,
-    soundEffectsEnabled: MutableState<Boolean>,
-    dailyReminderEnabled: MutableState<Boolean>,
-    themeState: MutableState<Int>,
-    onResetProgress: () -> Unit
+    settings: Settings,
+    wordDao: WordDao,
+    lifecycleScope: LifecycleCoroutineScope
 ) {
     val switchItems = listOf(
-        Pair(stringResource(R.string.settings_sound_effects), soundEffectsEnabled),
-        Pair(stringResource(R.string.settings_daily_reminder), dailyReminderEnabled)
+        Pair(stringResource(R.string.settings_sound_effects), settings.soundEffectsEnabled),
+        Pair(stringResource(R.string.settings_daily_reminder), settings.dailyRemindersEnabled)
     )
     val radioOptions = listOf(
         Pair(stringResource(R.string.settings_theme_auto), ThemeState.AUTO),
@@ -63,21 +61,19 @@ fun SettingsContent(
     ) {
         item {
             Column(verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.settings_item_spacing))) {
-                switchItems.forEach { switchItem ->
+                switchItems.forEach {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(text = switchItem.first, style = MaterialTheme.typography.titleLarge)
+                        Text(text = it.first, style = MaterialTheme.typography.titleLarge)
                         Switch(
-                            checked = switchItem.second.value,
-                            onCheckedChange = { value ->
-                                switchItem.second.value = value
-                            },
+                            checked = it.second.value,
+                            onCheckedChange = { value -> it.second.value = value },
                             thumbContent = {
                                 Icon(
-                                    imageVector = if (switchItem.second.value) Icons.Filled.Check else Icons.Filled.Close,
+                                    imageVector = if (it.second.value) Icons.Filled.Check else Icons.Filled.Close,
                                     contentDescription = null,
                                     modifier = Modifier.size(SwitchDefaults.IconSize)
                                 )
@@ -99,26 +95,26 @@ fun SettingsContent(
                     style = MaterialTheme.typography.titleLarge
                 )
 
-                radioOptions.forEach { option ->
+                radioOptions.forEach {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .selectable(
-                                selected = themeState.value == option.second,
-                                onClick = { themeState.value = option.second },
+                                selected = settings.themeState.value == it.second,
+                                onClick = { settings.themeState.value = it.second },
                                 role = Role.RadioButton
                             ),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = option.first,
+                            text = it.first,
                             style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier.padding(start = dimensionResource(R.dimen.settings_sub_item_padding))
                         )
 
                         RadioButton(
-                            selected = themeState.value == option.second,
+                            selected = settings.themeState.value == it.second,
                             onClick = null,
                             modifier = Modifier.padding(end = dimensionResource(R.dimen.settings_radio_button_padding))
                         )
@@ -133,7 +129,11 @@ fun SettingsContent(
 
         item {
             Button(
-                onClick = onResetProgress,
+                onClick = {
+                    lifecycleScope.launch {
+                        wordDao.resetProgress()
+                    }
+                },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonColors(
                     MaterialTheme.colorScheme.error,
@@ -146,15 +146,4 @@ fun SettingsContent(
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun SettingsContentPreview() {
-    SettingsContent(
-        PaddingValues(),
-        rememberSaveable { mutableStateOf(false) },
-        rememberSaveable { mutableStateOf(false) },
-        rememberSaveable { mutableIntStateOf(ThemeState.AUTO) },
-    ) {}
 }
