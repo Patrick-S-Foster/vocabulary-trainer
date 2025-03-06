@@ -3,8 +3,10 @@ package com.example.vocabularytrainer.service.db
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
 
 @Entity
+@Serializable
 data class Word(
     @ColumnInfo(name = "category") val category: String,
     @ColumnInfo(name = "word") val word: String,
