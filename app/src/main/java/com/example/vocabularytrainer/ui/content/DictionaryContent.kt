@@ -41,25 +41,22 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DictionaryContent(
-    wordDao: WordDao,
-    lifecycleScope: LifecycleCoroutineScope
-) {
+fun DictionaryContent(wordDao: WordDao, lifecycleScope: LifecycleCoroutineScope) {
     var text by rememberSaveable { mutableStateOf("") }
     var expanded by rememberSaveable { mutableStateOf(false) }
     val words = remember { mutableStateListOf<Word>() }
 
     if (text.isNotBlank() && words.isEmpty()) {
         LaunchedEffect(true) {
-            lifecycleScope.launch {
-                val foundWords = wordDao.searchWords(text)
-                words.clear()
-                words.addAll(foundWords)
-            }
+            val foundWords = wordDao.searchWords(text)
+            words.clear()
+            words.addAll(foundWords)
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize().semantics { isTraversalGroup = true }) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .semantics { isTraversalGroup = true }) {
 
         SearchBar(
             modifier = Modifier
