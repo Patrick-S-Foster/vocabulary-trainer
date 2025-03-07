@@ -36,7 +36,7 @@ fun WordCard(
     Card(
         modifier = Modifier.fillMaxWidth(),
         border = BorderStroke(
-            dimensionResource(R.dimen.word_card_border_width),
+            dimensionResource(R.dimen.card_border_width),
             MaterialTheme.colorScheme.outline
         )
     ) {
