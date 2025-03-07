@@ -47,7 +47,8 @@ fun HomeScreen(
     settings: Settings,
     wordDao: WordDao,
     lifecycleScope: LifecycleCoroutineScope,
-    modifier: Modifier = Modifier
+    onFabClick: (languageLevel: LanguageLevel) -> Unit,
+    modifier: Modifier
 ) {
     var displayedContent by rememberSaveable { mutableStateOf(DisplayedContent.Home) }
     val fabExpanded = rememberSaveable { mutableStateOf(false) }
@@ -124,7 +125,6 @@ fun HomeScreen(
                     fabExpanded.value = false
                 },
                 onNavigateSettings = {
-
                     displayedContent = DisplayedContent.Settings
                     fabExpanded.value = false
                 })
@@ -133,7 +133,11 @@ fun HomeScreen(
             if (displayedContent == DisplayedContent.Home || displayedContent == DisplayedContent.Dictionary) {
                 LanguageFloatingActionButton(
                     expanded = fabExpanded,
-                    onClick = {})
+                    onClick = {
+                        onFabClick(it)
+                        fabExpanded.value = false
+                    }
+                )
             }
         }) {
         Box(

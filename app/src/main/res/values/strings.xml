@@ -16,4 +16,5 @@
     <string name="settings_theme_dark">Dark</string>
     <string name="settings_reset_progress">Reset Progress</string>
     <string name="dictionary_placeholder">Search for a word...</string>
+    <string name="learning_title">Study Session - %1$s</string>
 </resources>
