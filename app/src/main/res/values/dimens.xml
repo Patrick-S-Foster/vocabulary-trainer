@@ -3,7 +3,7 @@
     <dimen name="language_progress_indicator_stroke_width">6dp</dimen>
     <dimen name="language_progress_indicator_gap_size">25dp</dimen>
     <dimen name="language_progress_indicator_size">125dp</dimen>
-    <dimen name="word_card_border_width">1dp</dimen>
+    <dimen name="card_border_width">1dp</dimen>
     <dimen name="word_card_horizontal_padding">15dp</dimen>
     <dimen name="word_card_vertical_padding">15dp</dimen>
     <dimen name="word_card_language_level_padding">15dp</dimen>
@@ -22,4 +22,6 @@
     <dimen name="settings_radio_button_padding">13dp</dimen>
     <dimen name="dictionary_items_spacing">16dp</dimen>
     <dimen name="dictionary_items_content_padding">24dp</dimen>
+    <dimen name="information_dialog_content_padding">12dp</dimen>
+    <dimen name="information_dialog_content_spacing">12dp</dimen>
 </resources>
