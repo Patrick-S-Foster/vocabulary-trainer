@@ -14,18 +14,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.vocabularytrainer.R
-import com.example.vocabularytrainer.ui.screens.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CenterAlignedTopBar(
-    currentScreen: Screen,
+    title: String,
     canNavigateBack: Boolean,
     modifier: Modifier = Modifier,
     navigateUp: () -> Unit = {}
 ) {
     CenterAlignedTopAppBar(
-        title = { Text(stringResource(currentScreen.title)) },
+        title = { Text(title) },
         modifier = modifier,
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -47,11 +46,11 @@ fun CenterAlignedTopBar(
 @Preview
 @Composable
 fun CenterAlignedTopBarNoNavigationPreview() {
-    CenterAlignedTopBar(Screen.Home, false)
+    CenterAlignedTopBar("Title", false)
 }
 
 @Preview
 @Composable
 fun CenterAlignedTopBarWithNavigationPreview() {
-    CenterAlignedTopBar(Screen.Home, true)
+    CenterAlignedTopBar("Title", true)
 }
