@@ -51,8 +51,8 @@ fun DictionaryContent(
     var expanded by rememberSaveable { mutableStateOf(false) }
     val words = remember { mutableStateListOf<Word>() }
 
-    if (text.isNotBlank() && words.isEmpty()) {
-        LaunchedEffect(true) {
+    LaunchedEffect(text) {
+        lifecycleScope.launch {
             val foundWords = wordDao.searchWords(text)
             words.clear()
             words.addAll(foundWords)
@@ -70,15 +70,7 @@ fun DictionaryContent(
             inputField = {
                 SearchBarDefaults.InputField(
                     query = text,
-                    onQueryChange = {
-                        text = it
-
-                        lifecycleScope.launch {
-                            val foundWords = wordDao.searchWords(text)
-                            words.clear()
-                            words.addAll(foundWords)
-                        }
-                    },
+                    onQueryChange = { text = it },
                     onSearch = { },
                     expanded = expanded,
                     onExpandedChange = { expanded = it },
