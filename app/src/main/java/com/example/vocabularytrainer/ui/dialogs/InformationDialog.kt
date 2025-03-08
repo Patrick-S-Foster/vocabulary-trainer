@@ -78,10 +78,7 @@ fun InformationDialog(onDismissRequest: () -> Unit) {
                     )
                     val context = LocalContext.current
 
-                    TextButton(onClick = {
-                        onDismissRequest()
-                        context.startActivity(intent)
-                    }) {
+                    TextButton(onClick = { context.startActivity(intent) }) {
                         Text(text = stringResource(R.string.information_dialog_button_view))
                     }
                 }
