@@ -41,7 +41,10 @@ fun HomeContent(
                     displayAudio = true,
                     displayDefinitions = true,
                     settings = settings,
-                    playAudio = playAudio
+                    playAudio = playAudio,
+                    selectable = false,
+                    selected = false,
+                    onSelected = { }
                 )
             }
         }
