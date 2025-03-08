@@ -51,7 +51,7 @@ fun InformationDialog(onDismissRequest: () -> Unit) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = stringResource(R.string.information_dialog_title),
+                        text = stringResource(R.string.information_dialog_credit_title),
                         style = MaterialTheme.typography.titleLarge
                     )
 
@@ -64,7 +64,27 @@ fun InformationDialog(onDismissRequest: () -> Unit) {
                 }
 
                 Text(
-                    text = stringResource(R.string.information_dialog_body),
+                    text = stringResource(R.string.information_dialog_oxford_body),
+                    style = MaterialTheme.typography.bodyLarge
+                )
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    val intent = Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(stringResource(R.string.oxford_5000_uri))
+                    )
+                    val context = LocalContext.current
+
+                    TextButton(onClick = { context.startActivity(intent) }) {
+                        Text(text = stringResource(R.string.information_dialog_button_oxford_5000))
+                    }
+                }
+
+                Text(
+                    text = stringResource(R.string.information_dialog_credit_body),
                     style = MaterialTheme.typography.bodyLarge
                 )
 
@@ -79,7 +99,7 @@ fun InformationDialog(onDismissRequest: () -> Unit) {
                     val context = LocalContext.current
 
                     TextButton(onClick = { context.startActivity(intent) }) {
-                        Text(text = stringResource(R.string.information_dialog_button_view))
+                        Text(text = stringResource(R.string.information_dialog_button_view_api))
                     }
                 }
             }
