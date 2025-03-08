@@ -25,7 +25,8 @@ fun HomeContent(
     contentPadding: PaddingValues,
     wordOfTheDay: Word?,
     languageLevelProgress: Map<LanguageLevel, Pair<Int, Int>>,
-    settings: Settings
+    settings: Settings,
+    playAudio: (audioUrl: String) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -39,7 +40,8 @@ fun HomeContent(
                     displayLanguageLevel = true,
                     displayAudio = true,
                     displayDefinitions = true,
-                    settings = settings
+                    settings = settings,
+                    playAudio = playAudio
                 )
             }
         }

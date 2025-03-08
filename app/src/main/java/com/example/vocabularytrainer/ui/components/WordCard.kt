@@ -39,7 +39,8 @@ fun WordCard(
     displayLanguageLevel: Boolean,
     displayAudio: Boolean,
     displayDefinitions: Boolean,
-    settings: Settings
+    settings: Settings,
+    playAudio: (audioUrl: String) -> Unit
 ) {
     var dialogOpen by rememberSaveable { mutableStateOf(false) }
 
@@ -99,9 +100,7 @@ fun WordCard(
             if (displayAudio) {
                 word?.phoneticAudioUrl?.let {
                     FilledIconButton(
-                        onClick = {
-                            // TODO: playback audio when clicked
-                        },
+                        onClick = { playAudio(it) },
                         enabled = settings.soundEffectsEnabled.value
                     ) {
                         Icon(

@@ -48,7 +48,8 @@ fun HomeScreen(
     wordDao: WordDao,
     lifecycleScope: LifecycleCoroutineScope,
     onFabClick: (languageLevel: LanguageLevel) -> Unit,
-    modifier: Modifier
+    modifier: Modifier,
+    playAudio: (audioUrl: String) -> Unit
 ) {
     var displayedContent by rememberSaveable { mutableStateOf(DisplayedContent.Home) }
     val fabExpanded = rememberSaveable { mutableStateOf(false) }
@@ -157,7 +158,8 @@ fun HomeScreen(
                         ),
                         languageLevelProgress = map,
                         wordOfTheDay = wordOfTheDay,
-                        settings = settings
+                        settings = settings,
+                        playAudio = playAudio
                     )
                 }
 
@@ -165,7 +167,8 @@ fun HomeScreen(
                     DictionaryContent(
                         wordDao = wordDao,
                         lifecycleScope = lifecycleScope,
-                        settings = settings
+                        settings = settings,
+                        playAudio = playAudio
                     )
                 }
 

@@ -44,7 +44,8 @@ import kotlinx.coroutines.launch
 fun DictionaryContent(
     wordDao: WordDao,
     lifecycleScope: LifecycleCoroutineScope,
-    settings: Settings
+    settings: Settings,
+    playAudio: (audioUrl: String) -> Unit
 ) {
     var text by rememberSaveable { mutableStateOf("") }
     var expanded by rememberSaveable { mutableStateOf(false) }
@@ -122,7 +123,8 @@ fun DictionaryContent(
                         displayLanguageLevel = true,
                         displayAudio = true,
                         displayDefinitions = true,
-                        settings = settings
+                        settings = settings,
+                        playAudio = playAudio
                     )
                 }
             }
