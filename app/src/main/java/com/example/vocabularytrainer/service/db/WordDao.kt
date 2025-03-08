@@ -12,16 +12,16 @@ interface WordDao {
     @Query("SELECT COUNT(*) FROM Word WHERE category=:languageLevelTitle")
     suspend fun getTotalCount(languageLevelTitle: String): Int
 
-    @Query("SELECT COUNT(*) FROM Word WHERE category=:languageLevelTitle AND study_state=:studyState")
+    @Query("SELECT COUNT(*) FROM Word WHERE category=:languageLevelTitle AND study_state=:studyStateFlags")
     suspend fun getLearnedCount(
         languageLevelTitle: String,
-        studyState: Int = StudyState.LEARNED
+        studyStateFlags: Int = StudyStateFlags.LEARNED
     ): Int
 
     @Query("SELECT * FROM Word WHERE word_of_the_day_date=:date LIMIT 1")
     suspend fun getWordOfTheDay(date: String): Word?
 
-    @Query("UPDATE Word Set study_state = 0")
+    @Query("UPDATE Word Set study_state=0")
     suspend fun resetProgress()
 
     @Query("SELECT * FROM Word WHERE word LIKE :searchString || '%' ORDER BY word")
