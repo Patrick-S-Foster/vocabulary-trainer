@@ -156,14 +156,16 @@ fun HomeScreen(
                             vertical = dimensionResource(R.dimen.content_padding_vertical)
                         ),
                         languageLevelProgress = map,
-                        wordOfTheDay = wordOfTheDay
+                        wordOfTheDay = wordOfTheDay,
+                        settings = settings
                     )
                 }
 
                 DisplayedContent.Dictionary -> {
                     DictionaryContent(
                         wordDao = wordDao,
-                        lifecycleScope = lifecycleScope
+                        lifecycleScope = lifecycleScope,
+                        settings = settings
                     )
                 }
 

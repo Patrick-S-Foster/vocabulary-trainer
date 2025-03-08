@@ -35,12 +35,17 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import com.example.vocabularytrainer.R
 import com.example.vocabularytrainer.service.db.Word
 import com.example.vocabularytrainer.service.db.WordDao
+import com.example.vocabularytrainer.service.settings.Settings
 import com.example.vocabularytrainer.ui.components.WordCard
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DictionaryContent(wordDao: WordDao, lifecycleScope: LifecycleCoroutineScope) {
+fun DictionaryContent(
+    wordDao: WordDao,
+    lifecycleScope: LifecycleCoroutineScope,
+    settings: Settings
+) {
     var text by rememberSaveable { mutableStateOf("") }
     var expanded by rememberSaveable { mutableStateOf(false) }
     val words = remember { mutableStateListOf<Word>() }
@@ -116,7 +121,8 @@ fun DictionaryContent(wordDao: WordDao, lifecycleScope: LifecycleCoroutineScope)
                         it,
                         displayLanguageLevel = true,
                         displayAudio = true,
-                        displayDefinitions = true
+                        displayDefinitions = true,
+                        settings = settings
                     )
                 }
             }
