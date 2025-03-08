@@ -35,10 +35,10 @@ fun HomeContent(
         item {
             TitledComposable(stringResource(R.string.word_of_the_day)) {
                 WordCard(
-                    languageLevel = if (wordOfTheDay != null) LanguageLevel.valueOf(wordOfTheDay.category) else null,
-                    word = wordOfTheDay?.word ?: "",
-                    phonetic = wordOfTheDay?.phoneticText ?: "",
-                    pronunciationUrl = wordOfTheDay?.phoneticAudioUrl
+                    word = wordOfTheDay,
+                    displayLanguageLevel = true,
+                    displayAudio = true,
+                    displayDefinitions = true
                 )
             }
         }

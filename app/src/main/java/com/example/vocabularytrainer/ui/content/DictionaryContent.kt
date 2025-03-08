@@ -35,7 +35,6 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import com.example.vocabularytrainer.R
 import com.example.vocabularytrainer.service.db.Word
 import com.example.vocabularytrainer.service.db.WordDao
-import com.example.vocabularytrainer.service.db.languageLevel
 import com.example.vocabularytrainer.ui.components.WordCard
 import kotlinx.coroutines.launch
 
@@ -113,7 +112,12 @@ fun DictionaryContent(wordDao: WordDao, lifecycleScope: LifecycleCoroutineScope)
                 contentPadding = PaddingValues(dimensionResource(R.dimen.dictionary_items_content_padding))
             ) {
                 items(words) {
-                    WordCard(it.languageLevel(), it.word, it.phoneticText, it.phoneticAudioUrl)
+                    WordCard(
+                        it,
+                        displayLanguageLevel = true,
+                        displayAudio = true,
+                        displayDefinitions = true
+                    )
                 }
             }
         }

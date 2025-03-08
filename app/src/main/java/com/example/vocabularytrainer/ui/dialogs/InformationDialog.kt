@@ -35,7 +35,7 @@ fun InformationDialog(onDismissRequest: () -> Unit) {
             border = BorderStroke(
                 dimensionResource(R.dimen.card_border_width),
                 MaterialTheme.colorScheme.outline
-            ),
+            )
         ) {
             Column(
                 modifier = Modifier
@@ -58,7 +58,7 @@ fun InformationDialog(onDismissRequest: () -> Unit) {
                     IconButton(onClick = onDismissRequest) {
                         Icon(
                             imageVector = Icons.Filled.Close,
-                            contentDescription = stringResource(R.string.information_dialog_button_close_content_description)
+                            contentDescription = stringResource(R.string.dialog_button_close_content_description)
                         )
                     }
                 }

@@ -15,12 +15,16 @@
     <string name="settings_theme_light">Light</string>
     <string name="settings_theme_dark">Dark</string>
     <string name="settings_reset_progress">Reset Progress</string>
-    <string name="dictionary_placeholder">Search for a word...</string>
+    <string name="dictionary_placeholder">Search for a word…</string>
     <string name="learning_title">Study Session - %1$s</string>
     <string name="center_aligned_top_bar_info_content_description">Display an informational dialog.</string>
     <string name="information_dialog_title">Word Data Credit</string>
     <string name="information_dialog_body">All word data was retrieved from the \"Free Dictionary API\". Credit for individual definitions and pronunciation audio can be found on each individual word card.</string>
     <string name="information_dialog_button_view">View API</string>
-    <string name="information_dialog_button_close_content_description">Close the information dialog.</string>
+    <string name="dialog_button_close_content_description">Close the dialog.</string>
     <string name="dictionary_api_uri">https://dictionaryapi.dev/</string>
+    <string name="word_dialog_audio_part_1">Pronunciation audio retrieved from</string>
+    <string name="word_dialog_part_3">licensed by</string>
+    <string name="word_dialog_definitions_part_1">Definitions retrieved from</string>
+    <string name="word_dialog_part_2">the web</string>
 </resources>

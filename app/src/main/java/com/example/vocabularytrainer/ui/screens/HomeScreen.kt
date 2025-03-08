@@ -74,7 +74,10 @@ fun HomeScreen(
 
                 for (item in array) {
                     val languageLevel = item.first.toLanguageLevel()
-                    map[languageLevel] = Pair(item.second, item.third)
+
+                    if (languageLevel != null) {
+                        map[languageLevel] = Pair(item.second, item.third)
+                    }
                 }
 
                 map
