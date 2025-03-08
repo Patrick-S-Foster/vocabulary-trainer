@@ -4,7 +4,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,12 +25,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.vocabularytrainer.R
-import com.example.vocabularytrainer.service.db.LanguageLevel
 import com.example.vocabularytrainer.service.db.Word
 import com.example.vocabularytrainer.service.db.toLanguageLevel
+import com.example.vocabularytrainer.service.settings.Settings
 import com.example.vocabularytrainer.ui.dialogs.WordDialog
 
 // TODO: make this selectable in a radio group
@@ -41,7 +38,9 @@ fun WordCard(
     word: Word?,
     displayLanguageLevel: Boolean,
     displayAudio: Boolean,
-    displayDefinitions: Boolean
+    displayDefinitions: Boolean,
+    settings: Settings,
+    playAudio: (audioUrl: String) -> Unit
 ) {
     var dialogOpen by rememberSaveable { mutableStateOf(false) }
 
@@ -100,9 +99,10 @@ fun WordCard(
             }
             if (displayAudio) {
                 word?.phoneticAudioUrl?.let {
-                    FilledIconButton(onClick = {
-                        // TODO: playback audio when clicked
-                    }) {
+                    FilledIconButton(
+                        onClick = { playAudio(it) },
+                        enabled = settings.soundEffectsEnabled.value
+                    ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.VolumeUp,
                             contentDescription = stringResource(R.string.pronunciation_content_description)
@@ -117,155 +117,5 @@ fun WordCard(
         WordDialog(word, displayDefinitions) {
             dialogOpen = false
         }
-    }
-}
-
-@Preview(showBackground = true, widthDp = 500)
-@Composable
-fun WordCardPreview() {
-    Box(modifier = Modifier.padding(5.dp)) {
-        WordCard(
-            Word(
-                LanguageLevel.A1.title,
-                "action",
-                "/ˈæk.ʃən/",
-                null,
-                null,
-                null,
-                null,
-                "Definition of the word 'action'.",
-                null,
-                null,
-                null,
-                null,
-                null,
-                0,
-                null,
-                0
-            ),
-            displayLanguageLevel = true,
-            displayAudio = true,
-            displayDefinitions = true
-        )
-    }
-}
-
-@Preview(showBackground = true, widthDp = 500)
-@Composable
-fun WordCardNoLanguagePreview() {
-    Box(modifier = Modifier.padding(5.dp)) {
-        WordCard(
-            Word(
-                LanguageLevel.A1.title,
-                "action",
-                "/ˈæk.ʃən/",
-                null,
-                null,
-                null,
-                null,
-                "Definition of the word 'action'.",
-                null,
-                null,
-                null,
-                null,
-                null,
-                0,
-                null,
-                0
-            ),
-            displayLanguageLevel = false,
-            displayAudio = true,
-            displayDefinitions = true
-        )
-    }
-}
-
-@Preview(showBackground = true, widthDp = 500)
-@Composable
-fun WordCardNoPronunciationPreview() {
-    Box(modifier = Modifier.padding(5.dp)) {
-        WordCard(
-            Word(
-                LanguageLevel.A1.title,
-                "action",
-                "/ˈæk.ʃən/",
-                null,
-                null,
-                null,
-                null,
-                "Definition of the word 'action'.",
-                null,
-                null,
-                null,
-                null,
-                null,
-                0,
-                null,
-                0
-            ),
-            displayLanguageLevel = true,
-            displayAudio = false,
-            displayDefinitions = true
-        )
-    }
-}
-
-@Preview(showBackground = true, widthDp = 500)
-@Composable
-fun WordCardNoDefinitionPreview() {
-    Box(modifier = Modifier.padding(5.dp)) {
-        WordCard(
-            Word(
-                LanguageLevel.A1.title,
-                "action",
-                "/ˈæk.ʃən/",
-                null,
-                null,
-                null,
-                null,
-                "Definition of the word 'action'.",
-                null,
-                null,
-                null,
-                null,
-                null,
-                0,
-                null,
-                0
-            ),
-            displayLanguageLevel = true,
-            displayAudio = true,
-            displayDefinitions = false
-        )
-    }
-}
-
-@Preview(showBackground = true, widthDp = 500)
-@Composable
-fun WordCardNothingPreview() {
-    Box(modifier = Modifier.padding(5.dp)) {
-        WordCard(
-            Word(
-                LanguageLevel.A1.title,
-                "action",
-                "/ˈæk.ʃən/",
-                null,
-                null,
-                null,
-                null,
-                "Definition of the word 'action'.",
-                null,
-                null,
-                null,
-                null,
-                null,
-                0,
-                null,
-                0
-            ),
-            displayLanguageLevel = false,
-            displayAudio = false,
-            displayDefinitions = false
-        )
     }
 }

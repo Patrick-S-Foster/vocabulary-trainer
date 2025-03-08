@@ -12,20 +12,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.vocabularytrainer.R
 import com.example.vocabularytrainer.service.db.LanguageLevel
 import com.example.vocabularytrainer.service.db.Word
+import com.example.vocabularytrainer.service.settings.Settings
 import com.example.vocabularytrainer.ui.components.LanguageProgressIndicator
 import com.example.vocabularytrainer.ui.components.TitledComposable
 import com.example.vocabularytrainer.ui.components.WordCard
-import java.util.EnumMap
 
 @Composable
 fun HomeContent(
     contentPadding: PaddingValues,
     wordOfTheDay: Word?,
-    languageLevelProgress: Map<LanguageLevel, Pair<Int, Int>>
+    languageLevelProgress: Map<LanguageLevel, Pair<Int, Int>>,
+    settings: Settings,
+    playAudio: (audioUrl: String) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -38,7 +39,9 @@ fun HomeContent(
                     word = wordOfTheDay,
                     displayLanguageLevel = true,
                     displayAudio = true,
-                    displayDefinitions = true
+                    displayDefinitions = true,
+                    settings = settings,
+                    playAudio = playAudio
                 )
             }
         }
@@ -97,10 +100,4 @@ fun HomeContent(
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HomeContentPreview() {
-    HomeContent(PaddingValues.Absolute(), null, EnumMap(LanguageLevel::class.java))
 }

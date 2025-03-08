@@ -1,6 +1,8 @@
 package com.example.vocabularytrainer
 
 import android.content.Context
+import android.media.AudioAttributes
+import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
@@ -97,7 +99,22 @@ class MainActivity : ComponentActivity() {
                                     languageLevel.value = it
                                     screen = Screen.LearningDefinitionToMultiWord
                                 },
-                                modifier = Modifier.padding(top = innerPadding.calculateTopPadding())
+                                modifier = Modifier.padding(top = innerPadding.calculateTopPadding()),
+                                playAudio = {
+                                    val mediaPlayer = MediaPlayer()
+                                    mediaPlayer.setAudioAttributes(
+                                        AudioAttributes.Builder()
+                                            .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                                            .build()
+                                    )
+
+                                    mediaPlayer.setOnPreparedListener {
+                                        mediaPlayer.start()
+                                    }
+
+                                    mediaPlayer.setDataSource(it)
+                                    mediaPlayer.prepareAsync()
+                                }
                             )
                         }
 
