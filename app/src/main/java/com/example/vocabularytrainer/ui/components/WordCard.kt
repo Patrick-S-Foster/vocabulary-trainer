@@ -1,5 +1,7 @@
 package com.example.vocabularytrainer.ui.components
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
@@ -11,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -23,15 +26,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.core.graphics.ColorUtils
 import com.example.vocabularytrainer.R
 import com.example.vocabularytrainer.service.db.Word
 import com.example.vocabularytrainer.service.db.toLanguageLevel
 import com.example.vocabularytrainer.service.settings.Settings
 import com.example.vocabularytrainer.ui.dialogs.WordDialog
 
-// TODO: make this selectable in a radio group
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun WordCard(
@@ -40,9 +45,39 @@ fun WordCard(
     displayAudio: Boolean,
     displayDefinitions: Boolean,
     settings: Settings,
-    playAudio: (audioUrl: String) -> Unit
+    playAudio: (audioUrl: String) -> Unit,
+    selectable: Boolean,
+    selected: Boolean,
+    onSelected: () -> Unit
 ) {
     var dialogOpen by rememberSaveable { mutableStateOf(false) }
+    val borderWidth by animateDpAsState(
+        if (selected) {
+            dimensionResource(R.dimen.card_border_width_selected)
+        } else {
+            dimensionResource(R.dimen.card_border_width)
+        }
+    )
+    val borderColor by animateColorAsState(
+        if (selected) {
+            MaterialTheme.colorScheme.primary
+        } else {
+            MaterialTheme.colorScheme.outline
+        }
+    )
+    val containerColor by animateColorAsState(
+        if (selected) {
+            Color(
+                ColorUtils.blendARGB(
+                    MaterialTheme.colorScheme.primary.toArgb(),
+                    CardDefaults.cardColors().containerColor.toArgb(),
+                    0.85F
+                )
+            )
+        } else {
+            CardDefaults.cardColors().containerColor
+        }
+    )
 
     Card(
         modifier = Modifier
@@ -51,11 +86,12 @@ fun WordCard(
                 onDoubleClick = { dialogOpen = true },
                 onLongClick = { dialogOpen = true }
             ) {
+                if (selectable) {
+                    onSelected()
+                }
             },
-        border = BorderStroke(
-            dimensionResource(R.dimen.card_border_width),
-            MaterialTheme.colorScheme.outline
-        )
+        border = BorderStroke(borderWidth, borderColor),
+        colors = CardDefaults.cardColors(containerColor = containerColor)
     ) {
         Row(
             modifier = Modifier
