@@ -47,8 +47,9 @@ fun WordCard(
     settings: Settings,
     playAudio: (audioUrl: String) -> Unit,
     selectable: Boolean,
-    selected: Boolean,
-    onSelected: () -> Unit
+    selected: Boolean = false,
+    selectedColor: Color = Color.Unspecified,
+    onSelected: () -> Unit = {},
 ) {
     var dialogOpen by rememberSaveable { mutableStateOf(false) }
     val borderWidth by animateDpAsState(
@@ -60,7 +61,7 @@ fun WordCard(
     )
     val borderColor by animateColorAsState(
         if (selected) {
-            MaterialTheme.colorScheme.primary
+            selectedColor
         } else {
             MaterialTheme.colorScheme.outline
         }
@@ -69,7 +70,7 @@ fun WordCard(
         if (selected) {
             Color(
                 ColorUtils.blendARGB(
-                    MaterialTheme.colorScheme.primary.toArgb(),
+                    selectedColor.toArgb(),
                     CardDefaults.cardColors().containerColor.toArgb(),
                     0.85F
                 )

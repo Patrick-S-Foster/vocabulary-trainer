@@ -117,9 +117,7 @@ fun DictionaryContent(
                         displayDefinitions = true,
                         settings = settings,
                         playAudio = playAudio,
-                        selectable = false,
-                        selected = false,
-                        onSelected = { }
+                        selectable = false
                     )
                 }
             }
