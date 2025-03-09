@@ -54,7 +54,6 @@ fun DefinitionToWordContent(
     playAudio: (audioUri: String) -> Unit,
     word: Word,
     onSuccess: () -> Unit,
-    onFailure: () -> Unit,
     onContinue: () -> Unit
 ) {
     var text by rememberSaveable { mutableStateOf("") }
@@ -71,8 +70,6 @@ fun DefinitionToWordContent(
 
         if (success) {
             onSuccess()
-        } else {
-            onFailure()
         }
     }
 

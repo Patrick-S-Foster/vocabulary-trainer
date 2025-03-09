@@ -105,13 +105,11 @@ fun HomeScreen(
             )
 
             if (wordOfTheDay == null) {
-                wordOfTheDay = wordDao.getRandomWords().firstOrNull()
+                wordOfTheDay = wordDao.getRandomWord()
 
-                if (wordOfTheDay != null) {
-                    wordOfTheDay!!.wordOfTheDayDate =
-                        LocalDateTime.now().format(DateTimeFormatter.BASIC_ISO_DATE)
-                    wordDao.updateAll(wordOfTheDay!!)
-                }
+                wordOfTheDay!!.wordOfTheDayDate =
+                    LocalDateTime.now().format(DateTimeFormatter.BASIC_ISO_DATE)
+                wordDao.updateAll(wordOfTheDay!!)
             }
         }
     }

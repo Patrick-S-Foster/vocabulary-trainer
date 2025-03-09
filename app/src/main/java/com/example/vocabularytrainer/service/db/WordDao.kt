@@ -6,16 +6,19 @@ import androidx.room.Update
 
 @Dao
 interface WordDao {
-    @Query("SELECT * FROM Word ORDER BY RANDOM() LIMIT :count")
-    suspend fun getRandomWords(count: Int = 1): List<Word>
+    @Query("SELECT * FROM Word ORDER BY RANDOM() LIMIT 1")
+    suspend fun getRandomWord(): Word
+
+    @Query("SELECT * FROM Word WHERE category=:languageLevelTitle AND study_state=:studyState ORDER BY RANDOM() LIMIT 1")
+    suspend fun getRandomWord(languageLevelTitle: String, studyState: Int): Word?
 
     @Query("SELECT COUNT(*) FROM Word WHERE category=:languageLevelTitle")
     suspend fun getTotalCount(languageLevelTitle: String): Int
 
-    @Query("SELECT COUNT(*) FROM Word WHERE category=:languageLevelTitle AND study_state=:studyStateFlags")
+    @Query("SELECT COUNT(*) FROM Word WHERE category=:languageLevelTitle AND study_state=:studyState")
     suspend fun getLearnedCount(
         languageLevelTitle: String,
-        studyStateFlags: Int = StudyStateFlags.LEARNED
+        studyState: Int = StudyState.LEARNED
     ): Int
 
     @Query("SELECT * FROM Word WHERE word_of_the_day_date=:date LIMIT 1")

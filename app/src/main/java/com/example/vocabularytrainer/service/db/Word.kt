@@ -21,7 +21,7 @@ data class Word(
     @ColumnInfo(name = "definition_word_source_url") val definitionWordSourceUrl: String?,
     @ColumnInfo(name = "definition_word_license_name") val definitionWordLicenseName: String?,
     @ColumnInfo(name = "definition_word_license_url") val definitionWordLicenseUrl: String?,
-    @ColumnInfo(name = "study_state") val studyStateFlags: Int,
+    @ColumnInfo(name = "study_state") var studyState: Int,
     @ColumnInfo(name = "word_of_the_day_date") var wordOfTheDayDate: String?,
     @PrimaryKey(autoGenerate = true) val id: Int? = null
 )

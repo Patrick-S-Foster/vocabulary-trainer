@@ -112,7 +112,11 @@ class MainActivity : ComponentActivity() {
                                 contentPadding = innerPadding,
                                 wordDao = wordDao,
                                 settings = settings,
-                                playAudio = { playAudio(it) }
+                                playAudio = { audioUri ->
+                                    playAudio(audioUri)
+                                },
+                                languageLevel = languageLevel.value,
+                                lifecycleScope = lifecycleScope
                             )
                         }
                     }
