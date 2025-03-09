@@ -101,10 +101,14 @@ fun AudioToMultiWordContent(
                             else -> throw IllegalStateException()
                         },
                         displayLanguageLevel = false,
-                        displayAudio = false,
+                        displayAudio = !canSelect,
                         displayDefinitions = true,
                         settings = settings,
-                        playAudio = {},
+                        playAudio = { it ->
+                            if (!canSelect) {
+                                playAudio(it)
+                            }
+                        },
                         selectable = true,
                         selected = selectedIndex == it.index || successIndex == it.index || failureIndex == it.index,
                         selectedColor = if (successIndex == it.index) {

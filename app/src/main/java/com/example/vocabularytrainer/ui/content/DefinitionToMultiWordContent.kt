@@ -97,7 +97,7 @@ fun DefinitionToMultiWordContent(
                         },
                         displayLanguageLevel = false,
                         displayAudio = true,
-                        displayDefinitions = false,
+                        displayDefinitions = !canSelect,
                         settings = settings,
                         playAudio = playAudio,
                         selectable = true,
