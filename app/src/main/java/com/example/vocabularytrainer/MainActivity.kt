@@ -9,6 +9,8 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.getValue
@@ -16,6 +18,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -99,7 +102,11 @@ class MainActivity : ComponentActivity() {
                                     languageLevel.value = it
                                     screen = Screen.LearningDefinitionToMultiWord
                                 },
-                                modifier = Modifier.padding(top = innerPadding.calculateTopPadding()),
+                                modifier = Modifier.padding(
+                                    top = innerPadding.calculateTopPadding(),
+                                    start = innerPadding.calculateStartPadding(LocalLayoutDirection.current),
+                                    end = innerPadding.calculateEndPadding(LocalLayoutDirection.current)
+                                ),
                                 playAudio = { playAudio(it) }
                             )
                         }
