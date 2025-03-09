@@ -87,7 +87,7 @@
             "notNull": false
           },
           {
-            "fieldPath": "studyState",
+            "fieldPath": "studyStateFlags",
             "columnName": "study_state",
             "affinity": "INTEGER",
             "notNull": true

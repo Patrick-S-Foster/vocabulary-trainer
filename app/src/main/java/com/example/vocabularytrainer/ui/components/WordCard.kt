@@ -47,8 +47,9 @@ fun WordCard(
     settings: Settings,
     playAudio: (audioUrl: String) -> Unit,
     selectable: Boolean,
-    selected: Boolean,
-    onSelected: () -> Unit
+    selected: Boolean = false,
+    selectedColor: Color = Color.Unspecified,
+    onSelected: () -> Unit = {},
 ) {
     var dialogOpen by rememberSaveable { mutableStateOf(false) }
     val borderWidth by animateDpAsState(
@@ -60,7 +61,7 @@ fun WordCard(
     )
     val borderColor by animateColorAsState(
         if (selected) {
-            MaterialTheme.colorScheme.primary
+            selectedColor
         } else {
             MaterialTheme.colorScheme.outline
         }
@@ -69,7 +70,7 @@ fun WordCard(
         if (selected) {
             Color(
                 ColorUtils.blendARGB(
-                    MaterialTheme.colorScheme.primary.toArgb(),
+                    selectedColor.toArgb(),
                     CardDefaults.cardColors().containerColor.toArgb(),
                     0.85F
                 )
@@ -83,8 +84,12 @@ fun WordCard(
         modifier = Modifier
             .fillMaxWidth()
             .combinedClickable(
-                onDoubleClick = { dialogOpen = true },
-                onLongClick = { dialogOpen = true }
+                onDoubleClick = {
+                    dialogOpen = canOpenWordDialog(word, displayDefinitions, displayAudio)
+                },
+                onLongClick = {
+                    dialogOpen = canOpenWordDialog(word, displayDefinitions, displayAudio)
+                }
             ) {
                 if (selectable) {
                     onSelected()
@@ -149,9 +154,21 @@ fun WordCard(
         }
     }
 
-    if (dialogOpen && word != null) {
-        WordDialog(word, displayDefinitions) {
+    if (dialogOpen && canOpenWordDialog(word, displayDefinitions, displayAudio)) {
+        WordDialog(word!!, displayDefinitions, displayAudio) {
             dialogOpen = false
         }
     }
 }
+
+private fun canOpenWordDialog(
+    word: Word?,
+    displayDefinitions: Boolean,
+    displayAudio: Boolean
+): Boolean =
+    word != null &&
+            (displayDefinitions ||
+                    displayAudio &&
+                    word.phoneticAudioSourceUrl != null &&
+                    word.phoneticAudioLicenseUrl != null &&
+                    word.phoneticAudioLicenseName != null)

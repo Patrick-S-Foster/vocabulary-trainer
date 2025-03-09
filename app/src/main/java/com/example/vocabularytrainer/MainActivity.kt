@@ -100,21 +100,7 @@ class MainActivity : ComponentActivity() {
                                     screen = Screen.LearningDefinitionToMultiWord
                                 },
                                 modifier = Modifier.padding(top = innerPadding.calculateTopPadding()),
-                                playAudio = {
-                                    val mediaPlayer = MediaPlayer()
-                                    mediaPlayer.setAudioAttributes(
-                                        AudioAttributes.Builder()
-                                            .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
-                                            .build()
-                                    )
-
-                                    mediaPlayer.setOnPreparedListener {
-                                        mediaPlayer.start()
-                                    }
-
-                                    mediaPlayer.setDataSource(it)
-                                    mediaPlayer.prepareAsync()
-                                }
+                                playAudio = { playAudio(it) }
                             )
                         }
 
@@ -123,12 +109,35 @@ class MainActivity : ComponentActivity() {
                                 // TODO: provide a prompt to see if the user wants to stop their training
                             }
                             LearningScreen(
-                                modifier = Modifier.padding(top = innerPadding.calculateTopPadding())
+                                contentPadding = innerPadding,
+                                wordDao = wordDao,
+                                settings = settings,
+                                playAudio = { audioUri ->
+                                    playAudio(audioUri)
+                                },
+                                languageLevel = languageLevel.value,
+                                lifecycleScope = lifecycleScope
                             )
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun playAudio(audioUri: String) {
+        val mediaPlayer = MediaPlayer()
+        mediaPlayer.setAudioAttributes(
+            AudioAttributes.Builder()
+                .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                .build()
+        )
+
+        mediaPlayer.setOnPreparedListener {
+            mediaPlayer.start()
+        }
+
+        mediaPlayer.setDataSource(audioUri)
+        mediaPlayer.prepareAsync()
     }
 }

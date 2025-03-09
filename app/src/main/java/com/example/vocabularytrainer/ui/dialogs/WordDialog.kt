@@ -46,6 +46,7 @@ private object DefinitionGridCells : GridCells {
 fun WordDialog(
     word: Word,
     displayDefinitions: Boolean,
+    displayAudio: Boolean,
     onDismissRequest: () -> Unit
 ) {
     BasicAlertDialog(onDismissRequest = onDismissRequest) {
@@ -148,7 +149,7 @@ fun WordDialog(
                     )
                 }
 
-                if (displayDefinitions &&
+                if (displayAudio &&
                     word.phoneticAudioSourceUrl != null &&
                     word.phoneticAudioLicenseUrl != null &&
                     word.phoneticAudioLicenseName != null
