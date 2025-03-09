@@ -120,7 +120,6 @@ fun HomeScreen(
     }
 
     Scaffold(
-        modifier = modifier,
         bottomBar = {
             HomeNavigationBar(
                 onNavigateHome = {
@@ -148,7 +147,7 @@ fun HomeScreen(
             }
         }) {
         Box(
-            modifier = Modifier
+            modifier = modifier
                 .padding(bottom = it.calculateBottomPadding())
                 .fillMaxSize()
         ) {
