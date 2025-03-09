@@ -16,17 +16,14 @@ import kotlinx.coroutines.flow.map
 class Settings(
     private val dataStore: DataStore<Preferences>,
     soundEffectsEnabled: Boolean,
-    dailyRemindersEnabled: Boolean,
     themeState: Int
 ) {
     companion object {
         private val soundEffectsKey = booleanPreferencesKey("sound_effects")
-        private val dailyReminderKey = booleanPreferencesKey("daily_reminder")
         private val themeStateKey = intPreferencesKey("theme")
     }
 
     val soundEffectsEnabled: MutableState<Boolean> = mutableStateOf(soundEffectsEnabled)
-    val dailyRemindersEnabled: MutableState<Boolean> = mutableStateOf(dailyRemindersEnabled)
     val themeState: MutableState<Int> = mutableIntStateOf(themeState)
 
     private suspend fun <T> getValue(key: Preferences.Key<T>, default: T): T {
@@ -45,16 +42,11 @@ class Settings(
     fun Init() {
         LaunchedEffect(true) {
             soundEffectsEnabled.value = getValue(soundEffectsKey, soundEffectsEnabled.value)
-            dailyRemindersEnabled.value = getValue(dailyReminderKey, dailyRemindersEnabled.value)
             themeState.value = getValue(themeStateKey, themeState.value)
         }
 
         LaunchedEffect(soundEffectsEnabled.value) {
             setValue(soundEffectsKey, soundEffectsEnabled.value)
-        }
-
-        LaunchedEffect(dailyRemindersEnabled.value) {
-            setValue(dailyReminderKey, dailyRemindersEnabled.value)
         }
 
         LaunchedEffect(themeState.value) {

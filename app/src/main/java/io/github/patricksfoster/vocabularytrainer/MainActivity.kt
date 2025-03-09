@@ -75,21 +75,16 @@ class MainActivity : ComponentActivity() {
             val settings = rememberSaveable(
                 saver = Saver(
                     save = {
-                        Triple(
-                            it.soundEffectsEnabled.value,
-                            it.dailyRemindersEnabled.value,
-                            it.themeState.value
-                        )
+                        Pair(it.soundEffectsEnabled.value, it.themeState.value)
                     },
                     restore = {
-                        Settings(applicationContext.settings, it.first, it.second, it.third)
+                        Settings(applicationContext.settings, it.first, it.second)
                     }
                 )
             ) {
                 Settings(
                     dataStore = applicationContext.settings,
                     soundEffectsEnabled = true,
-                    dailyRemindersEnabled = true,
                     themeState = ThemeState.AUTO
                 )
             }
