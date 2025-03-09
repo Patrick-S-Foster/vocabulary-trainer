@@ -35,6 +35,7 @@ import com.example.vocabularytrainer.service.db.WordDatabase
 import com.example.vocabularytrainer.service.settings.Settings
 import com.example.vocabularytrainer.service.settings.ThemeState
 import com.example.vocabularytrainer.ui.components.CenterAlignedTopBar
+import com.example.vocabularytrainer.ui.dialogs.ConfirmDialog
 import com.example.vocabularytrainer.ui.screens.HomeScreen
 import com.example.vocabularytrainer.ui.screens.LearningScreen
 import com.example.vocabularytrainer.ui.screens.Screen
@@ -93,6 +94,8 @@ class MainActivity : ComponentActivity() {
 
             settings.Init()
 
+            var dialogOpen by rememberSaveable { mutableStateOf(false) }
+
             VocabularyTrainerTheme(
                 darkTheme = settings.themeState.value == ThemeState.DARK || settings.themeState.value == ThemeState.AUTO && isSystemInDarkTheme()
             ) {
@@ -104,10 +107,7 @@ class MainActivity : ComponentActivity() {
                             stringResource(R.string.learning_title, languageLevel.value.title)
                         },
                         canNavigateBack = screen != Screen.Home,
-                        navigateUp = {
-                            navController.navigateUp()
-                            screen = Screen.Home
-                        }
+                        navigateUp = { dialogOpen = true }
                     )
                 }) { innerPadding ->
                     NavHost(navController = navController, startDestination = Home) {
@@ -131,9 +131,7 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable<Learning> {
-                            BackHandler {
-                                // TODO: provide a prompt to see if the user wants to stop their training
-                            }
+                            BackHandler { dialogOpen = true }
                             LearningScreen(
                                 contentPadding = innerPadding,
                                 wordDao = wordDao,
@@ -154,6 +152,19 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
+                    }
+
+                    if (dialogOpen) {
+                        ConfirmDialog(
+                            title = stringResource(R.string.confirm_stop_training_dialog_title),
+                            body = stringResource(R.string.confirm_stop_training_dialog_body),
+                            onCancel = {
+                                dialogOpen = false
+                            }, onConfirm = {
+                                dialogOpen = false
+                                navController.navigateUp()
+                                screen = Screen.Home
+                            })
                     }
                 }
             }

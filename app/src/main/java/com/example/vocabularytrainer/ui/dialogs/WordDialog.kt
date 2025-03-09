@@ -60,8 +60,8 @@ fun WordDialog(
             Column(
                 modifier = Modifier
                     .padding(
-                        horizontal = dimensionResource(R.dimen.word_card_horizontal_padding),
-                        vertical = dimensionResource(R.dimen.word_card_vertical_padding)
+                        horizontal = dimensionResource(R.dimen.card_horizontal_padding),
+                        vertical = dimensionResource(R.dimen.card_vertical_padding)
                     ),
                 verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.information_dialog_content_spacing))
             ) {

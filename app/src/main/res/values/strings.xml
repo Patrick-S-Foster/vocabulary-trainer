@@ -33,4 +33,8 @@
     <string name="learning_content_button_submit">Submit</string>
     <string name="learning_content_button_continue">Continue</string>
     <string name="learning_content_search_placeholder">Enter the corresponding word…</string>
+    <string name="confirm_stop_training_dialog_title">Stop Training Session</string>
+    <string name="confirm_stop_training_dialog_body">Are you sure that you want to stop this training session?</string>
+    <string name="confirm_dialog_cancel">Cancel</string>
+    <string name="confirm_dialog_confirm">OK</string>
 </resources>

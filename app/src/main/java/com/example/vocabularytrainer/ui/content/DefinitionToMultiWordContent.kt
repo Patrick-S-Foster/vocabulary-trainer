@@ -69,8 +69,8 @@ fun DefinitionToMultiWordContent(
                 ) {
                     Text(
                         modifier = Modifier.padding(
-                            horizontal = dimensionResource(R.dimen.word_card_horizontal_padding),
-                            vertical = dimensionResource(R.dimen.word_card_vertical_padding)
+                            horizontal = dimensionResource(R.dimen.card_horizontal_padding),
+                            vertical = dimensionResource(R.dimen.card_vertical_padding)
                         ),
                         text = correctWord.definitionOne,
                         style = MaterialTheme.typography.titleLarge
