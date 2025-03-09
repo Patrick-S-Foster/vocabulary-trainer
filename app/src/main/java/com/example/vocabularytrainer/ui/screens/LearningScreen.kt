@@ -140,6 +140,18 @@ fun LearningScreen(
         }
     }
 
+    fun onFailure() {
+        lifecycleScope.launch {
+            correctWord!!.studyState = when (correctWord!!.studyState) {
+                StudyState.SOLVED_DEFINITION_TO_MULTI_WORD -> StudyState.SOLVED_AUDIO_TO_MULTI_WORD
+                StudyState.LEARNED -> StudyState.SOLVED_DEFINITION_TO_MULTI_WORD
+                else -> StudyState.NONE
+            }
+
+            wordDao.updateAll(correctWord!!)
+        }
+    }
+
     fun onContinue() {
         lifecycleScope.launch {
             contentVisible = false
@@ -175,6 +187,7 @@ fun LearningScreen(
                             secondIncorrectWord = secondIncorrectWord!!,
                             thirdIncorrectWord = thirdIncorrectWord!!,
                             onSuccess = ::onSuccess,
+                            onFailure = ::onFailure,
                             onContinue = ::onContinue
                         )
                     }
@@ -189,6 +202,7 @@ fun LearningScreen(
                             secondIncorrectWord = secondIncorrectWord!!,
                             thirdIncorrectWord = thirdIncorrectWord!!,
                             onSuccess = ::onSuccess,
+                            onFailure = ::onFailure,
                             onContinue = ::onContinue
                         )
                     }
@@ -200,6 +214,7 @@ fun LearningScreen(
                             playAudio = playAudio,
                             word = correctWord!!,
                             onSuccess = ::onSuccess,
+                            onFailure = ::onFailure,
                             onContinue = ::onContinue
                         )
                     }
