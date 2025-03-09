@@ -15,8 +15,8 @@ import com.example.vocabularytrainer.R
 fun TitledComposable(text: String, content: @Composable () -> Unit) {
     Column {
         HorizontalDivider(
-            modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.titled_content_horizontal_padding)),
-            thickness = dimensionResource(R.dimen.titled_content_divider_thickness)
+            modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.divider_horizontal_padding)),
+            thickness = dimensionResource(R.dimen.divider_thickness)
         )
 
         Text(
@@ -25,7 +25,7 @@ fun TitledComposable(text: String, content: @Composable () -> Unit) {
                     top = dimensionResource(R.dimen.titled_content_title_spacing),
                     bottom = dimensionResource(R.dimen.titled_content_content_spacing)
                 )
-                .padding(horizontal = dimensionResource(R.dimen.titled_content_horizontal_padding)),
+                .padding(horizontal = dimensionResource(R.dimen.divider_horizontal_padding)),
             text = text,
             style = MaterialTheme.typography.labelSmall
         )

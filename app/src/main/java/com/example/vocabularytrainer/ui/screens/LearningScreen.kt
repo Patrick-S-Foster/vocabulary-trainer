@@ -16,7 +16,7 @@ import com.example.vocabularytrainer.R
 import com.example.vocabularytrainer.service.db.Word
 import com.example.vocabularytrainer.service.db.WordDao
 import com.example.vocabularytrainer.service.settings.Settings
-import com.example.vocabularytrainer.ui.content.DefinitionToMultiWordContent
+import com.example.vocabularytrainer.ui.content.AudioToMultiWordContent
 import kotlinx.serialization.json.Json
 
 @Composable
@@ -72,7 +72,7 @@ fun LearningScreen(
         thirdIncorrectWord != null
     ) {
         Box(modifier = Modifier.padding(dimensionResource(R.dimen.learning_content_padding))) {
-            DefinitionToMultiWordContent(
+            AudioToMultiWordContent(
                 contentPadding,
                 settings,
                 playAudio,

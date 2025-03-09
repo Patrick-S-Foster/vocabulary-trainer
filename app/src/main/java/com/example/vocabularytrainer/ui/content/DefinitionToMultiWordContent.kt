@@ -81,9 +81,9 @@ fun DefinitionToMultiWordContent(
 
                 HorizontalDivider(
                     modifier = Modifier
-                        .padding(horizontal = dimensionResource(R.dimen.titled_content_horizontal_padding))
+                        .padding(horizontal = dimensionResource(R.dimen.divider_horizontal_padding))
                         .fillMaxWidth(),
-                    thickness = dimensionResource(R.dimen.titled_content_divider_thickness)
+                    thickness = dimensionResource(R.dimen.divider_thickness)
                 )
 
                 ordering.withIndex().forEach {
