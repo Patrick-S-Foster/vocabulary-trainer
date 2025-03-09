@@ -5,7 +5,8 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -13,7 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.example.vocabularytrainer.R
@@ -175,11 +176,22 @@ fun LearningScreen(
             enter = fadeIn(),
             exit = fadeOut()
         ) {
-            Box(modifier = Modifier.padding(dimensionResource(R.dimen.learning_content_padding))) {
+            val paddedContentPadding = PaddingValues(
+                start = contentPadding.calculateStartPadding(LocalLayoutDirection.current) + dimensionResource(
+                    R.dimen.learning_content_padding
+                ),
+                end = contentPadding.calculateEndPadding(LocalLayoutDirection.current) + dimensionResource(
+                    R.dimen.learning_content_padding
+                ),
+                top = contentPadding.calculateTopPadding() + dimensionResource(R.dimen.learning_content_padding),
+                bottom = contentPadding.calculateBottomPadding() + dimensionResource(R.dimen.learning_content_padding),
+            )
+
+            Box {
                 when (contentType) {
                     StudyState.NONE -> {
                         AudioToMultiWordContent(
-                            contentPadding = contentPadding,
+                            contentPadding = paddedContentPadding,
                             settings = settings,
                             playAudio = playAudio,
                             correctWord = correctWord!!,
@@ -194,7 +206,7 @@ fun LearningScreen(
 
                     StudyState.SOLVED_AUDIO_TO_MULTI_WORD -> {
                         DefinitionToMultiWordContent(
-                            contentPadding = contentPadding,
+                            contentPadding = paddedContentPadding,
                             settings = settings,
                             playAudio = playAudio,
                             correctWord = correctWord!!,
@@ -209,7 +221,7 @@ fun LearningScreen(
 
                     StudyState.SOLVED_DEFINITION_TO_MULTI_WORD -> {
                         DefinitionToWordContent(
-                            contentPadding = contentPadding,
+                            contentPadding = paddedContentPadding,
                             settings = settings,
                             playAudio = playAudio,
                             word = correctWord!!,
