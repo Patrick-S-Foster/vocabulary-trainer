@@ -42,7 +42,8 @@ fun SettingsContent(
     contentPadding: PaddingValues,
     settings: Settings,
     wordDao: WordDao,
-    lifecycleScope: LifecycleCoroutineScope
+    lifecycleScope: LifecycleCoroutineScope,
+    progressReset: () -> Unit
 ) {
     val switchItems = listOf(
         Pair(stringResource(R.string.settings_sound_effects), settings.soundEffectsEnabled),
@@ -132,6 +133,7 @@ fun SettingsContent(
                 onClick = {
                     lifecycleScope.launch {
                         wordDao.resetProgress()
+                        progressReset()
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),

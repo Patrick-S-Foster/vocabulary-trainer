@@ -13,16 +13,21 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
-class Settings(private val dataStore: DataStore<Preferences>) {
+class Settings(
+    private val dataStore: DataStore<Preferences>,
+    soundEffectsEnabled: Boolean,
+    dailyRemindersEnabled: Boolean,
+    themeState: Int
+) {
     companion object {
         private val soundEffectsKey = booleanPreferencesKey("sound_effects")
         private val dailyReminderKey = booleanPreferencesKey("daily_reminder")
         private val themeStateKey = intPreferencesKey("theme")
     }
 
-    val soundEffectsEnabled: MutableState<Boolean> = mutableStateOf(true)
-    val dailyRemindersEnabled: MutableState<Boolean> = mutableStateOf(true)
-    val themeState: MutableState<Int> = mutableIntStateOf(ThemeState.AUTO)
+    val soundEffectsEnabled: MutableState<Boolean> = mutableStateOf(soundEffectsEnabled)
+    val dailyRemindersEnabled: MutableState<Boolean> = mutableStateOf(dailyRemindersEnabled)
+    val themeState: MutableState<Int> = mutableIntStateOf(themeState)
 
     private suspend fun <T> getValue(key: Preferences.Key<T>, default: T): T {
         return dataStore.data.map {
@@ -39,9 +44,9 @@ class Settings(private val dataStore: DataStore<Preferences>) {
     @Composable
     fun Init() {
         LaunchedEffect(true) {
-            soundEffectsEnabled.value = getValue(soundEffectsKey, true)
-            dailyRemindersEnabled.value = getValue(dailyReminderKey, true)
-            themeState.value = getValue(themeStateKey, ThemeState.AUTO)
+            soundEffectsEnabled.value = getValue(soundEffectsKey, soundEffectsEnabled.value)
+            dailyRemindersEnabled.value = getValue(dailyReminderKey, dailyRemindersEnabled.value)
+            themeState.value = getValue(themeStateKey, themeState.value)
         }
 
         LaunchedEffect(soundEffectsEnabled.value) {

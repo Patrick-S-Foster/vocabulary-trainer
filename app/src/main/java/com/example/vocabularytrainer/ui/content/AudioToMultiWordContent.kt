@@ -46,6 +46,7 @@ fun AudioToMultiWordContent(
     secondIncorrectWord: Word,
     thirdIncorrectWord: Word,
     onSuccess: () -> Unit,
+    onFailure: () -> Unit,
     onContinue: () -> Unit
 ) {
     var selectedIndex by rememberSaveable { mutableIntStateOf(-1) }
@@ -141,6 +142,7 @@ fun AudioToMultiWordContent(
                         } else {
                             failureIndex = selectedIndex
                             successIndex = (ordering.withIndex().first { it.value == 0 }).index
+                            onFailure()
                         }
 
                         canSelect = false

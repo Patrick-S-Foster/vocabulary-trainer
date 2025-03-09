@@ -9,13 +9,17 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -43,10 +47,6 @@ class MainActivity : ComponentActivity() {
         private val Context.settings: DataStore<Preferences> by preferencesDataStore(name = "settings")
     }
 
-    private val settings: Settings by lazy {
-        Settings(applicationContext.settings)
-    }
-
     private val wordDao: WordDao by lazy {
         Room.databaseBuilder(applicationContext, WordDatabase::class.java, WordDatabase.NAME)
             .createFromAsset(WordDatabase.ASSET_NAME)
@@ -68,6 +68,28 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             var screen: Screen by rememberSaveable { mutableStateOf(Screen.Home) }
             val languageLevel = rememberSaveable { mutableStateOf(LanguageLevel.A1) }
+
+            val settings = rememberSaveable(
+                saver = Saver(
+                    save = {
+                        Triple(
+                            it.soundEffectsEnabled.value,
+                            it.dailyRemindersEnabled.value,
+                            it.themeState.value
+                        )
+                    },
+                    restore = {
+                        Settings(applicationContext.settings, it.first, it.second, it.third)
+                    }
+                )
+            ) {
+                Settings(
+                    dataStore = applicationContext.settings,
+                    soundEffectsEnabled = true,
+                    dailyRemindersEnabled = true,
+                    themeState = ThemeState.AUTO
+                )
+            }
 
             settings.Init()
 
@@ -99,7 +121,11 @@ class MainActivity : ComponentActivity() {
                                     languageLevel.value = it
                                     screen = Screen.LearningDefinitionToMultiWord
                                 },
-                                modifier = Modifier.padding(top = innerPadding.calculateTopPadding()),
+                                modifier = Modifier.padding(
+                                    top = innerPadding.calculateTopPadding(),
+                                    start = innerPadding.calculateStartPadding(LocalLayoutDirection.current),
+                                    end = innerPadding.calculateEndPadding(LocalLayoutDirection.current)
+                                ),
                                 playAudio = { playAudio(it) }
                             )
                         }

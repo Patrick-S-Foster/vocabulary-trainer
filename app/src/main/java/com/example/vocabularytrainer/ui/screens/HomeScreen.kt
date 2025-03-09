@@ -32,6 +32,7 @@ import com.example.vocabularytrainer.ui.components.LanguageFloatingActionButton
 import com.example.vocabularytrainer.ui.content.DictionaryContent
 import com.example.vocabularytrainer.ui.content.HomeContent
 import com.example.vocabularytrainer.ui.content.SettingsContent
+import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -93,7 +94,7 @@ fun HomeScreen(
             restore = { mutableStateOf(Json.decodeFromString(it)) })
     ) { mutableStateOf(null) }
 
-    LaunchedEffect(true) {
+    suspend fun populateMap() {
         for (languageLevel in LanguageLevel.entries) {
             val completedCount = wordDao.getLearnedCount(languageLevel.title)
             val totalCount = wordDao.getTotalCount(languageLevel.title)
@@ -114,8 +115,11 @@ fun HomeScreen(
         }
     }
 
+    LaunchedEffect(true) {
+        populateMap()
+    }
+
     Scaffold(
-        modifier = modifier,
         bottomBar = {
             HomeNavigationBar(
                 onNavigateHome = {
@@ -143,7 +147,7 @@ fun HomeScreen(
             }
         }) {
         Box(
-            modifier = Modifier
+            modifier = modifier
                 .padding(bottom = it.calculateBottomPadding())
                 .fillMaxSize()
         ) {
@@ -180,7 +184,12 @@ fun HomeScreen(
                         ),
                         lifecycleScope = lifecycleScope,
                         settings = settings,
-                        wordDao = wordDao
+                        wordDao = wordDao,
+                        progressReset = {
+                            lifecycleScope.launch {
+                                populateMap()
+                            }
+                        }
                     )
                 }
             }
