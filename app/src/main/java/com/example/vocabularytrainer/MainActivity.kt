@@ -137,12 +137,21 @@ class MainActivity : ComponentActivity() {
                             LearningScreen(
                                 contentPadding = innerPadding,
                                 wordDao = wordDao,
-                                settings = settings,
                                 playAudio = { audioUri ->
                                     playAudio(audioUri)
                                 },
                                 languageLevel = languageLevel.value,
-                                lifecycleScope = lifecycleScope
+                                lifecycleScope = lifecycleScope,
+                                playSuccess = {
+                                    if (settings.soundEffectsEnabled.value) {
+                                        playSuccessOrFailure(true)
+                                    }
+                                },
+                                playFailure = {
+                                    if (settings.soundEffectsEnabled.value) {
+                                        playSuccessOrFailure(false)
+                                    }
+                                }
                             )
                         }
                     }
@@ -165,5 +174,17 @@ class MainActivity : ComponentActivity() {
 
         mediaPlayer.setDataSource(audioUri)
         mediaPlayer.prepareAsync()
+    }
+
+    private fun playSuccessOrFailure(success: Boolean) {
+        val mediaPlayer =
+            MediaPlayer.create(applicationContext, if (success) R.raw.success else R.raw.failure)
+        mediaPlayer.setAudioAttributes(
+            AudioAttributes.Builder()
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build()
+        )
+
+        mediaPlayer.start()
     }
 }

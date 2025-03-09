@@ -35,7 +35,6 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import com.example.vocabularytrainer.R
 import com.example.vocabularytrainer.service.db.Word
 import com.example.vocabularytrainer.service.db.WordDao
-import com.example.vocabularytrainer.service.settings.Settings
 import com.example.vocabularytrainer.ui.components.WordCard
 import kotlinx.coroutines.launch
 
@@ -44,7 +43,6 @@ import kotlinx.coroutines.launch
 fun DictionaryContent(
     wordDao: WordDao,
     lifecycleScope: LifecycleCoroutineScope,
-    settings: Settings,
     playAudio: (audioUrl: String) -> Unit
 ) {
     var text by rememberSaveable { mutableStateOf("") }
@@ -115,7 +113,6 @@ fun DictionaryContent(
                         displayLanguageLevel = true,
                         displayAudio = true,
                         displayDefinitions = true,
-                        settings = settings,
                         playAudio = playAudio,
                         selectable = false
                     )

@@ -160,7 +160,6 @@ fun HomeScreen(
                         ),
                         languageLevelProgress = map,
                         wordOfTheDay = wordOfTheDay,
-                        settings = settings,
                         playAudio = playAudio
                     )
                 }
@@ -169,7 +168,6 @@ fun HomeScreen(
                     DictionaryContent(
                         wordDao = wordDao,
                         lifecycleScope = lifecycleScope,
-                        settings = settings,
                         playAudio = playAudio
                     )
                 }

@@ -22,7 +22,6 @@ import com.example.vocabularytrainer.service.db.LanguageLevel
 import com.example.vocabularytrainer.service.db.StudyState
 import com.example.vocabularytrainer.service.db.Word
 import com.example.vocabularytrainer.service.db.WordDao
-import com.example.vocabularytrainer.service.settings.Settings
 import com.example.vocabularytrainer.ui.content.AudioToMultiWordContent
 import com.example.vocabularytrainer.ui.content.DefinitionToMultiWordContent
 import com.example.vocabularytrainer.ui.content.DefinitionToWordContent
@@ -35,8 +34,9 @@ fun LearningScreen(
     languageLevel: LanguageLevel,
     contentPadding: PaddingValues,
     wordDao: WordDao,
-    settings: Settings,
     playAudio: (audioUri: String) -> Unit,
+    playSuccess: () -> Unit,
+    playFailure: () -> Unit,
     lifecycleScope: LifecycleCoroutineScope
 ) {
     var correctWord: Word? by rememberSaveable(
@@ -139,6 +139,8 @@ fun LearningScreen(
 
             wordDao.updateAll(correctWord!!)
         }
+
+        playSuccess()
     }
 
     fun onFailure() {
@@ -151,6 +153,8 @@ fun LearningScreen(
 
             wordDao.updateAll(correctWord!!)
         }
+
+        playFailure()
     }
 
     fun onContinue() {
@@ -192,7 +196,6 @@ fun LearningScreen(
                     StudyState.NONE -> {
                         AudioToMultiWordContent(
                             contentPadding = paddedContentPadding,
-                            settings = settings,
                             playAudio = playAudio,
                             correctWord = correctWord!!,
                             firstIncorrectWord = firstIncorrectWord!!,
@@ -207,7 +210,6 @@ fun LearningScreen(
                     StudyState.SOLVED_AUDIO_TO_MULTI_WORD -> {
                         DefinitionToMultiWordContent(
                             contentPadding = paddedContentPadding,
-                            settings = settings,
                             playAudio = playAudio,
                             correctWord = correctWord!!,
                             firstIncorrectWord = firstIncorrectWord!!,
@@ -222,7 +224,6 @@ fun LearningScreen(
                     StudyState.SOLVED_DEFINITION_TO_MULTI_WORD -> {
                         DefinitionToWordContent(
                             contentPadding = paddedContentPadding,
-                            settings = settings,
                             playAudio = playAudio,
                             word = correctWord!!,
                             onSuccess = ::onSuccess,

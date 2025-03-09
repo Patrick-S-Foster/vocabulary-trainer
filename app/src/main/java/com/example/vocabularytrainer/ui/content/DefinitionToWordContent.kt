@@ -43,14 +43,12 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import com.example.vocabularytrainer.R
 import com.example.vocabularytrainer.service.db.Word
-import com.example.vocabularytrainer.service.settings.Settings
 import com.example.vocabularytrainer.ui.components.WordCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DefinitionToWordContent(
     contentPadding: PaddingValues,
-    settings: Settings,
     playAudio: (audioUri: String) -> Unit,
     word: Word,
     onSuccess: () -> Unit,
@@ -183,7 +181,6 @@ fun DefinitionToWordContent(
                         displayLanguageLevel = false,
                         displayAudio = true,
                         displayDefinitions = true,
-                        settings = settings,
                         playAudio = playAudio,
                         selectable = true,
                         selected = true,
