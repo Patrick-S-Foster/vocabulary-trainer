@@ -27,7 +27,9 @@
     <string name="word_dialog_part_3">licensed by</string>
     <string name="word_dialog_definitions_part_1">Definitions retrieved from</string>
     <string name="word_dialog_part_2">the web</string>
-    <string name="information_dialog_oxford_body">The words that are contained in this app are a subset of the Oxford 5000, and span the language levels A1 through C1.</string>
+    <string name="information_dialog_oxford_body">The words that are contained in this app are a subset of the Oxford 5000, and span the language levels A1 <through></through> C1.</string>
     <string name="information_dialog_button_oxford_5000">View Oxford 5000</string>
     <string name="oxford_5000_uri">https://www.oxfordlearnersdictionaries.com/wordlists/oxford3000-5000</string>
+    <string name="learning_content_button_submit">Submit</string>
+    <string name="learning_content_button_continue">Continue</string>
 </resources>

@@ -150,8 +150,15 @@ fun WordCard(
         }
     }
 
-    if (dialogOpen && word != null) {
-        WordDialog(word, displayDefinitions) {
+    if (dialogOpen &&
+        word != null &&
+        (displayDefinitions ||
+                displayAudio &&
+                word.phoneticAudioSourceUrl != null &&
+                word.phoneticAudioLicenseUrl != null &&
+                word.phoneticAudioLicenseName != null)
+    ) {
+        WordDialog(word, displayDefinitions, displayAudio) {
             dialogOpen = false
         }
     }

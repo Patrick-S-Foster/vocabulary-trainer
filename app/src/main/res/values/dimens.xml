@@ -25,4 +25,6 @@
     <dimen name="dictionary_items_content_padding">24dp</dimen>
     <dimen name="information_dialog_content_padding">12dp</dimen>
     <dimen name="information_dialog_content_spacing">12dp</dimen>
+    <dimen name="learning_content_spacing">30dp</dimen>
+    <dimen name="learning_content_padding">30dp</dimen>
 </resources>
