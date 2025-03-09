@@ -32,4 +32,5 @@
     <string name="oxford_5000_uri">https://www.oxfordlearnersdictionaries.com/wordlists/oxford3000-5000</string>
     <string name="learning_content_button_submit">Submit</string>
     <string name="learning_content_button_continue">Continue</string>
+    <string name="learning_content_search_placeholder">Enter the corresponding word…</string>
 </resources>
