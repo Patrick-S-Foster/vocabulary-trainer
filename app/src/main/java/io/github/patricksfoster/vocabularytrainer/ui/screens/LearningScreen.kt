@@ -66,6 +66,10 @@ fun LearningScreen(
     var contentType: Int? by rememberSaveable { mutableStateOf(null) }
     var contentVisible by rememberSaveable { mutableStateOf(true) }
 
+    LaunchedEffect(true) {
+        contentVisible = true
+    }
+
     suspend fun getWordNotInIds(ids: List<Int>): Word {
         var candidateWord: Word
 

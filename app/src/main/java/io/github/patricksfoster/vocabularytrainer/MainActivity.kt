@@ -41,6 +41,7 @@ import io.github.patricksfoster.vocabularytrainer.ui.screens.HomeScreen
 import io.github.patricksfoster.vocabularytrainer.ui.screens.LearningScreen
 import io.github.patricksfoster.vocabularytrainer.ui.screens.Screen
 import io.github.patricksfoster.vocabularytrainer.ui.theme.VocabularyTrainerTheme
+import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
 class MainActivity : ComponentActivity() {
@@ -174,30 +175,37 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun playAudio(audioUri: String) {
-        val mediaPlayer = MediaPlayer()
-        mediaPlayer.setAudioAttributes(
-            AudioAttributes.Builder()
-                .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
-                .build()
-        )
+        lifecycleScope.launch {
+            val mediaPlayer = MediaPlayer()
+            mediaPlayer.setAudioAttributes(
+                AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                    .build()
+            )
 
-        mediaPlayer.setOnPreparedListener {
-            mediaPlayer.start()
+            mediaPlayer.setOnPreparedListener {
+                mediaPlayer.start()
+            }
+
+            mediaPlayer.setDataSource(audioUri)
+            mediaPlayer.prepareAsync()
         }
-
-        mediaPlayer.setDataSource(audioUri)
-        mediaPlayer.prepareAsync()
     }
 
     private fun playSuccessOrFailure(success: Boolean) {
-        val mediaPlayer =
-            MediaPlayer.create(applicationContext, if (success) R.raw.success else R.raw.failure)
-        mediaPlayer.setAudioAttributes(
-            AudioAttributes.Builder()
-                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                .build()
-        )
+        lifecycleScope.launch {
+            val mediaPlayer =
+                MediaPlayer.create(
+                    applicationContext,
+                    if (success) R.raw.success else R.raw.failure
+                )
+            mediaPlayer.setAudioAttributes(
+                AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .build()
+            )
 
-        mediaPlayer.start()
+            mediaPlayer.start()
+        }
     }
 }
