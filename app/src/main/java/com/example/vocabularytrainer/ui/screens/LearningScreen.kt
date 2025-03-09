@@ -37,6 +37,8 @@ fun LearningScreen(
     wordDao: WordDao,
     settings: Settings,
     playAudio: (audioUri: String) -> Unit,
+    playSuccess: () -> Unit,
+    playFailure: () -> Unit,
     lifecycleScope: LifecycleCoroutineScope
 ) {
     var correctWord: Word? by rememberSaveable(
@@ -139,6 +141,8 @@ fun LearningScreen(
 
             wordDao.updateAll(correctWord!!)
         }
+
+        playSuccess()
     }
 
     fun onFailure() {
@@ -151,6 +155,8 @@ fun LearningScreen(
 
             wordDao.updateAll(correctWord!!)
         }
+
+        playFailure()
     }
 
     fun onContinue() {
