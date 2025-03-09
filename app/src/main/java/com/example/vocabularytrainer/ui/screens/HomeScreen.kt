@@ -1,5 +1,7 @@
 package com.example.vocabularytrainer.ui.screens
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Canvas
@@ -20,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.example.vocabularytrainer.R
 import com.example.vocabularytrainer.service.db.LanguageLevel
@@ -50,7 +53,8 @@ fun HomeScreen(
     lifecycleScope: LifecycleCoroutineScope,
     onFabClick: (languageLevel: LanguageLevel) -> Unit,
     modifier: Modifier,
-    playAudio: (audioUrl: String) -> Unit
+    playAudio: (audioUrl: String) -> Unit,
+    context: Context
 ) {
     var displayedContent by rememberSaveable { mutableStateOf(DisplayedContent.Home) }
     val fabExpanded = rememberSaveable { mutableStateOf(false) }
@@ -173,6 +177,8 @@ fun HomeScreen(
                 }
 
                 else -> {
+                    val toastText = stringResource(R.string.toast_reset)
+
                     SettingsContent(
                         contentPadding = PaddingValues(
                             horizontal = dimensionResource(
@@ -187,6 +193,8 @@ fun HomeScreen(
                             lifecycleScope.launch {
                                 populateMap()
                             }
+
+                            Toast.makeText(context, toastText, Toast.LENGTH_LONG).show()
                         }
                     )
                 }

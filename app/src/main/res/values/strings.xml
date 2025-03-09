@@ -39,4 +39,5 @@
     <string name="confirm_dialog_confirm">OK</string>
     <string name="confirm_reset_title">Reset all Data</string>
     <string name="confirm_reset_body">Are you sure that you want to reset all data? This action can not be reversed.</string>
+    <string name="toast_reset">All data reset</string>
 </resources>

@@ -126,7 +126,8 @@ class MainActivity : ComponentActivity() {
                                     start = innerPadding.calculateStartPadding(LocalLayoutDirection.current),
                                     end = innerPadding.calculateEndPadding(LocalLayoutDirection.current)
                                 ),
-                                playAudio = { playAudio(it) }
+                                playAudio = { playAudio(it) },
+                                context = applicationContext
                             )
                         }
 
