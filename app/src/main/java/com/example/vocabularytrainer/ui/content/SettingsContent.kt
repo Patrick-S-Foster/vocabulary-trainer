@@ -25,6 +25,10 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -35,6 +39,7 @@ import com.example.vocabularytrainer.R
 import com.example.vocabularytrainer.service.db.WordDao
 import com.example.vocabularytrainer.service.settings.Settings
 import com.example.vocabularytrainer.service.settings.ThemeState
+import com.example.vocabularytrainer.ui.dialogs.ConfirmDialog
 import kotlinx.coroutines.launch
 
 @Composable
@@ -54,6 +59,7 @@ fun SettingsContent(
         Pair(stringResource(R.string.settings_theme_light), ThemeState.LIGHT),
         Pair(stringResource(R.string.settings_theme_dark), ThemeState.DARK)
     )
+    var showDialog by rememberSaveable { mutableStateOf(false) }
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -130,12 +136,7 @@ fun SettingsContent(
 
         item {
             Button(
-                onClick = {
-                    lifecycleScope.launch {
-                        wordDao.resetProgress()
-                        progressReset()
-                    }
-                },
+                onClick = { showDialog = true },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonColors(
                     MaterialTheme.colorScheme.error,
@@ -147,5 +148,21 @@ fun SettingsContent(
                 Text(text = stringResource(R.string.settings_reset_progress))
             }
         }
+    }
+
+    if (showDialog) {
+        ConfirmDialog(
+            title = stringResource(R.string.confirm_reset_title),
+            body = stringResource(R.string.confirm_reset_body),
+            onCancel = { showDialog = false },
+            onConfirm = {
+                showDialog = false
+
+                lifecycleScope.launch {
+                    wordDao.resetProgress()
+                    progressReset()
+                }
+            }
+        )
     }
 }
