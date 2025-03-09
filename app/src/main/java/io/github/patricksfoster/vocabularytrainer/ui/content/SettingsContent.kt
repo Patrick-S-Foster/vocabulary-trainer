@@ -50,10 +50,6 @@ fun SettingsContent(
     lifecycleScope: LifecycleCoroutineScope,
     progressReset: () -> Unit
 ) {
-    val switchItems = listOf(
-        Pair(stringResource(R.string.settings_sound_effects), settings.soundEffectsEnabled),
-        Pair(stringResource(R.string.settings_daily_reminder), settings.dailyRemindersEnabled)
-    )
     val radioOptions = listOf(
         Pair(stringResource(R.string.settings_theme_auto), ThemeState.AUTO),
         Pair(stringResource(R.string.settings_theme_light), ThemeState.LIGHT),
@@ -67,27 +63,26 @@ fun SettingsContent(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         item {
-            Column(verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.settings_item_spacing))) {
-                switchItems.forEach {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(text = it.first, style = MaterialTheme.typography.titleLarge)
-                        Switch(
-                            checked = it.second.value,
-                            onCheckedChange = { value -> it.second.value = value },
-                            thumbContent = {
-                                Icon(
-                                    imageVector = if (it.second.value) Icons.Filled.Check else Icons.Filled.Close,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(SwitchDefaults.IconSize)
-                                )
-                            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(R.string.settings_sound_effects),
+                    style = MaterialTheme.typography.titleLarge
+                )
+                Switch(
+                    checked = settings.soundEffectsEnabled.value,
+                    onCheckedChange = { value -> settings.soundEffectsEnabled.value = value },
+                    thumbContent = {
+                        Icon(
+                            imageVector = if (settings.soundEffectsEnabled.value) Icons.Filled.Check else Icons.Filled.Close,
+                            contentDescription = null,
+                            modifier = Modifier.size(SwitchDefaults.IconSize)
                         )
                     }
-                }
+                )
             }
 
             Column(
