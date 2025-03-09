@@ -84,8 +84,12 @@ fun WordCard(
         modifier = Modifier
             .fillMaxWidth()
             .combinedClickable(
-                onDoubleClick = { dialogOpen = true },
-                onLongClick = { dialogOpen = true }
+                onDoubleClick = {
+                    dialogOpen = canOpenWordDialog(word, displayDefinitions, displayAudio)
+                },
+                onLongClick = {
+                    dialogOpen = canOpenWordDialog(word, displayDefinitions, displayAudio)
+                }
             ) {
                 if (selectable) {
                     onSelected()
@@ -150,16 +154,21 @@ fun WordCard(
         }
     }
 
-    if (dialogOpen &&
-        word != null &&
-        (displayDefinitions ||
-                displayAudio &&
-                word.phoneticAudioSourceUrl != null &&
-                word.phoneticAudioLicenseUrl != null &&
-                word.phoneticAudioLicenseName != null)
-    ) {
-        WordDialog(word, displayDefinitions, displayAudio) {
+    if (dialogOpen && canOpenWordDialog(word, displayDefinitions, displayAudio)) {
+        WordDialog(word!!, displayDefinitions, displayAudio) {
             dialogOpen = false
         }
     }
 }
+
+private fun canOpenWordDialog(
+    word: Word?,
+    displayDefinitions: Boolean,
+    displayAudio: Boolean
+): Boolean =
+    word != null &&
+            (displayDefinitions ||
+                    displayAudio &&
+                    word.phoneticAudioSourceUrl != null &&
+                    word.phoneticAudioLicenseUrl != null &&
+                    word.phoneticAudioLicenseName != null)
