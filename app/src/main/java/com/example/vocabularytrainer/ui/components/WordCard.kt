@@ -100,14 +100,14 @@ fun WordCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    horizontal = dimensionResource(R.dimen.word_card_horizontal_padding),
-                    vertical = dimensionResource(R.dimen.word_card_vertical_padding)
+                    horizontal = dimensionResource(R.dimen.card_horizontal_padding),
+                    vertical = dimensionResource(R.dimen.card_vertical_padding)
                 ),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.word_card_horizontal_padding)),
+                horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.card_horizontal_padding)),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 if (displayLanguageLevel) {
