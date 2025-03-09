@@ -76,7 +76,7 @@ fun LearningScreen(
     }
 
     suspend fun regenerate(onlyIfNull: Boolean) {
-        if (!onlyIfNull && contentType == null) {
+        if (onlyIfNull && contentType != null) {
             return
         }
 
