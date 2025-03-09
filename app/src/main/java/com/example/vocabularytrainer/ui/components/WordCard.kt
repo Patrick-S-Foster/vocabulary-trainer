@@ -34,7 +34,6 @@ import androidx.core.graphics.ColorUtils
 import com.example.vocabularytrainer.R
 import com.example.vocabularytrainer.service.db.Word
 import com.example.vocabularytrainer.service.db.toLanguageLevel
-import com.example.vocabularytrainer.service.settings.Settings
 import com.example.vocabularytrainer.ui.dialogs.WordDialog
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -44,7 +43,6 @@ fun WordCard(
     displayLanguageLevel: Boolean,
     displayAudio: Boolean,
     displayDefinitions: Boolean,
-    settings: Settings,
     playAudio: (audioUrl: String) -> Unit,
     selectable: Boolean,
     selected: Boolean = false,
@@ -140,10 +138,7 @@ fun WordCard(
             }
             if (displayAudio) {
                 word?.phoneticAudioUrl?.let {
-                    FilledIconButton(
-                        onClick = { playAudio(it) },
-                        enabled = settings.soundEffectsEnabled.value
-                    ) {
+                    FilledIconButton(onClick = { playAudio(it) }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.VolumeUp,
                             contentDescription = stringResource(R.string.pronunciation_content_description)

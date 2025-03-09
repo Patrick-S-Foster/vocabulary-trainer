@@ -15,7 +15,6 @@ import androidx.compose.ui.res.stringResource
 import com.example.vocabularytrainer.R
 import com.example.vocabularytrainer.service.db.LanguageLevel
 import com.example.vocabularytrainer.service.db.Word
-import com.example.vocabularytrainer.service.settings.Settings
 import com.example.vocabularytrainer.ui.components.LanguageProgressIndicator
 import com.example.vocabularytrainer.ui.components.TitledComposable
 import com.example.vocabularytrainer.ui.components.WordCard
@@ -25,7 +24,6 @@ fun HomeContent(
     contentPadding: PaddingValues,
     wordOfTheDay: Word?,
     languageLevelProgress: Map<LanguageLevel, Pair<Int, Int>>,
-    settings: Settings,
     playAudio: (audioUrl: String) -> Unit
 ) {
     LazyColumn(
@@ -40,7 +38,6 @@ fun HomeContent(
                     displayLanguageLevel = true,
                     displayAudio = true,
                     displayDefinitions = true,
-                    settings = settings,
                     playAudio = playAudio,
                     selectable = false
                 )

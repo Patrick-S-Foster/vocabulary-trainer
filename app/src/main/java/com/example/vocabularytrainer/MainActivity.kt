@@ -137,7 +137,6 @@ class MainActivity : ComponentActivity() {
                             LearningScreen(
                                 contentPadding = innerPadding,
                                 wordDao = wordDao,
-                                settings = settings,
                                 playAudio = { audioUri ->
                                     playAudio(audioUri)
                                 },

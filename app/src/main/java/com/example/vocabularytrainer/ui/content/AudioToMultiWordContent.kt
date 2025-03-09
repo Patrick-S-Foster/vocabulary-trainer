@@ -33,13 +33,11 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import com.example.vocabularytrainer.R
 import com.example.vocabularytrainer.service.db.Word
-import com.example.vocabularytrainer.service.settings.Settings
 import com.example.vocabularytrainer.ui.components.WordCard
 
 @Composable
 fun AudioToMultiWordContent(
     contentPadding: PaddingValues,
-    settings: Settings,
     playAudio: (audioUri: String) -> Unit,
     correctWord: Word,
     firstIncorrectWord: Word,
@@ -103,7 +101,6 @@ fun AudioToMultiWordContent(
                         displayLanguageLevel = false,
                         displayAudio = !canSelect,
                         displayDefinitions = true,
-                        settings = settings,
                         playAudio = { audioUri ->
                             if (!canSelect) {
                                 playAudio(audioUri)
