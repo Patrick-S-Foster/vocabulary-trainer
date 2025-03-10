@@ -44,6 +44,7 @@ private object DefinitionGridCells : GridCells {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WordDialog(
+    modifier: Modifier,
     word: Word,
     displayDefinitions: Boolean,
     displayAudio: Boolean,
@@ -51,7 +52,7 @@ fun WordDialog(
 ) {
     BasicAlertDialog(onDismissRequest = onDismissRequest) {
         Card(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = modifier.fillMaxWidth(),
             border = BorderStroke(
                 dimensionResource(R.dimen.card_border_width),
                 MaterialTheme.colorScheme.outline
