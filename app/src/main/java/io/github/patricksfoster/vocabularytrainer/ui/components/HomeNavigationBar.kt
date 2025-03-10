@@ -16,6 +16,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.vocabularytrainer.R
@@ -40,16 +42,22 @@ fun HomeNavigationBar(
     val unselectedIcons =
         listOf(Icons.Outlined.Home, Icons.Outlined.Translate, Icons.Outlined.Settings)
 
-    NavigationBar {
+    NavigationBar(modifier = Modifier.testTag("NavigationBar")) {
         tabs.forEachIndexed { index, tab ->
             NavigationBarItem(
                 icon = {
                     Icon(
                         if (selectedIndex == index) selectedIcons[index] else unselectedIcons[index],
                         contentDescription = tab,
+                        modifier = Modifier.testTag("NavigationBarItemIcon#$index")
                     )
                 },
-                label = { Text(tab) },
+                label = {
+                    Text(
+                        text = tab,
+                        modifier = Modifier.testTag("NavigationBarItemLabel#$index")
+                    )
+                },
                 selected = selectedIndex == index,
                 onClick = {
                     if (selectedIndex != index) {
@@ -61,7 +69,8 @@ fun HomeNavigationBar(
                             SettingsIndex -> onNavigateSettings()
                         }
                     }
-                }
+                },
+                modifier = Modifier.testTag("NavigationBarItem#$index")
             )
         }
     }
