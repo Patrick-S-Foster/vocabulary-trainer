@@ -1,6 +1,7 @@
 package io.github.patricksfoster.vocabularytrainer.service.db
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 
@@ -30,9 +31,9 @@ interface WordDao {
     @Query("SELECT * FROM Word WHERE word LIKE :searchString || '%' ORDER BY word")
     suspend fun searchWords(searchString: String): List<Word>
 
-    @Query("SELECT * FROM Word WHERE id=:id")
-    suspend fun getWord(id: Int): Word
-
     @Update
     suspend fun updateAll(vararg words: Word)
+
+    @Insert
+    suspend fun insert(vararg words: Word)
 }
