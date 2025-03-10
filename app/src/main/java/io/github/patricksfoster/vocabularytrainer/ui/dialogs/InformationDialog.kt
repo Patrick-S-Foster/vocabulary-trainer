@@ -28,8 +28,8 @@ import com.example.vocabularytrainer.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InformationDialog(onDismissRequest: () -> Unit) {
-    BasicAlertDialog(onDismissRequest = onDismissRequest) {
+fun InformationDialog(modifier: Modifier, onDismissRequest: () -> Unit) {
+    BasicAlertDialog(onDismissRequest = onDismissRequest, modifier = modifier) {
         Card(
             modifier = Modifier.fillMaxWidth(),
             border = BorderStroke(
