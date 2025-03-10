@@ -21,6 +21,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,10 +38,12 @@ fun LanguageFloatingActionButton(
     onClick: (languageLevel: LanguageLevel) -> Unit
 ) {
     Box(
-        modifier = Modifier.padding(
-            end = WindowInsets.systemBars.asPaddingValues()
-                .calculateRightPadding(LocalLayoutDirection.current)
-        )
+        modifier = Modifier
+            .padding(
+                end = WindowInsets.systemBars.asPaddingValues()
+                    .calculateRightPadding(LocalLayoutDirection.current)
+            )
+            .testTag("FloatingActionButtonOuterBox")
     ) {
         for ((index, languageLevel) in LanguageLevel.entries.withIndex()) {
             val angle = Math.toRadians(index * 90.0 / (LanguageLevel.entries.size - 1))
@@ -60,22 +63,30 @@ fun LanguageFloatingActionButton(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(end = paddingEnd, bottom = paddingBottom)
+                    .testTag("FloatingActionButtonInnerBox#$index")
             ) {
                 FilledIconButton(
                     onClick = { onClick(languageLevel) },
+                    modifier = Modifier.testTag("FilledActionButton#$index")
                 ) {
-                    Text(languageLevel.title)
+                    Text(
+                        text = languageLevel.title,
+                        modifier = Modifier.testTag("FilledActionButtonText#$index")
+                    )
                 }
             }
         }
 
         FloatingActionButton(
-            modifier = Modifier.align(Alignment.BottomEnd),
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .testTag("FloatingActionButton"),
             onClick = { expanded.value = !expanded.value }
         ) {
             Icon(
-                if (expanded.value) Icons.Filled.Close else Icons.AutoMirrored.Outlined.MenuBook,
-                stringResource(R.string.floating_action_button_content_description)
+                imageVector = if (expanded.value) Icons.Filled.Close else Icons.AutoMirrored.Outlined.MenuBook,
+                contentDescription = stringResource(R.string.floating_action_button_content_description),
+                modifier = Modifier.testTag("FloatingActionButtonIcon")
             )
         }
     }
