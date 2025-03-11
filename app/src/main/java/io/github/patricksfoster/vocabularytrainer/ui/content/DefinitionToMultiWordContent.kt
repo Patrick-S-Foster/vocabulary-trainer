@@ -23,6 +23,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -68,10 +69,12 @@ fun DefinitionToMultiWordContent(
                     )
                 ) {
                     Text(
-                        modifier = Modifier.padding(
-                            horizontal = dimensionResource(R.dimen.card_horizontal_padding),
-                            vertical = dimensionResource(R.dimen.card_vertical_padding)
-                        ),
+                        modifier = Modifier
+                            .padding(
+                                horizontal = dimensionResource(R.dimen.card_horizontal_padding),
+                                vertical = dimensionResource(R.dimen.card_vertical_padding)
+                            )
+                            .testTag("DefinitionToMultiWordContentDefinition"),
                         text = correctWord.definitionOne,
                         style = MaterialTheme.typography.titleLarge
                     )
@@ -80,13 +83,14 @@ fun DefinitionToMultiWordContent(
                 HorizontalDivider(
                     modifier = Modifier
                         .padding(horizontal = dimensionResource(R.dimen.divider_horizontal_padding))
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .testTag("DefinitionToMultiWordContentDivider"),
                     thickness = dimensionResource(R.dimen.divider_thickness)
                 )
 
                 ordering.withIndex().forEach {
                     WordCard(
-                        modifier = Modifier,
+                        modifier = Modifier.testTag("DefinitionToMultiWordContentWordCard#${it.value}"),
                         word = when (it.value) {
                             0 -> correctWord
                             1 -> firstIncorrectWord
@@ -123,6 +127,7 @@ fun DefinitionToMultiWordContent(
 
         item {
             Button(
+                modifier = Modifier.testTag("DefinitionToMultiWordContentSubmitButton"),
                 onClick = {
                     if (submit) {
                         if (ordering[selectedIndex] == 0) {
@@ -143,6 +148,7 @@ fun DefinitionToMultiWordContent(
                 enabled = selectedIndex != -1
             ) {
                 Text(
+                    modifier = Modifier.testTag("DefinitionToMultiWordContentSubmitButtonText"),
                     text =
                     if (submit) {
                         stringResource(R.string.learning_content_button_submit)

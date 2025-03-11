@@ -3,7 +3,7 @@ package io.github.patricksfoster.vocabularytrainer.ui.content
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertIsEnabled
+import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
@@ -11,20 +11,24 @@ import io.github.patricksfoster.vocabularytrainer.TestUtil
 import org.junit.Rule
 import org.junit.Test
 
-class AudioToMultiWordContentTests {
+class DefinitionToMultiWordContentTests {
     @get: Rule
     val composeTestRule = createComposeRule()
 
     @Test
     fun allVisible() {
         composeTestRule.setContent {
-            AudioToMultiWordContent(
+            DefinitionToMultiWordContent(
                 contentPadding = PaddingValues(),
                 playAudio = {},
-                correctWord = TestUtil.createWord(phoneticAudioUrl = "correct"),
-                firstIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "firstIncorrect"),
-                secondIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "secondIncorrect"),
-                thirdIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "thirdIncorrect"),
+                correctWord = TestUtil.createWord(
+                    definitionOne = "definitionOne",
+                    definitionTwo = "definitionTwo",
+                    definitionThree = "definitionThree"
+                ),
+                firstIncorrectWord = TestUtil.createWord(),
+                secondIncorrectWord = TestUtil.createWord(),
+                thirdIncorrectWord = TestUtil.createWord(),
                 onSuccess = {},
                 onFailure = {},
                 onContinue = {}
@@ -32,88 +36,82 @@ class AudioToMultiWordContentTests {
         }
 
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentAudioButton",
+            testTag = "DefinitionToMultiWordContentDefinition",
             useUnmergedTree = true
         ).assertExists().assertIsDisplayed()
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentAudioButtonIcon",
+            testTag = "DefinitionToMultiWordContentDivider",
             useUnmergedTree = true
         ).assertExists().assertIsDisplayed()
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentDivider",
+            testTag = "DefinitionToMultiWordContentWordCard#0",
             useUnmergedTree = true
         ).assertExists().assertIsDisplayed()
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentWordCard#0",
+            testTag = "DefinitionToMultiWordContentWordCard#1",
             useUnmergedTree = true
         ).assertExists().assertIsDisplayed()
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentWordCard#1",
+            testTag = "DefinitionToMultiWordContentWordCard#2",
             useUnmergedTree = true
         ).assertExists().assertIsDisplayed()
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentWordCard#2",
+            testTag = "DefinitionToMultiWordContentWordCard#3",
             useUnmergedTree = true
         ).assertExists().assertIsDisplayed()
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentWordCard#3",
+            testTag = "DefinitionToMultiWordContentSubmitButton",
             useUnmergedTree = true
         ).assertExists().assertIsDisplayed()
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentSubmitButton",
-            useUnmergedTree = true
-        ).assertExists().assertIsDisplayed()
-        composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentSubmitButtonText",
+            testTag = "DefinitionToMultiWordContentSubmitButtonText",
             useUnmergedTree = true
         ).assertExists().assertIsDisplayed()
     }
 
     @Test
-    fun clickAudioButton_PlayAudioCalled() {
-        var audioUrl: String? = null
-        var onSuccessCalled = false
-        var onFailureCalled = false
-        var onContinueCalled = false
+    fun definitionOneVisible() {
         composeTestRule.setContent {
-            AudioToMultiWordContent(
+            DefinitionToMultiWordContent(
                 contentPadding = PaddingValues(),
-                playAudio = { audioUrl = it },
-                correctWord = TestUtil.createWord(phoneticAudioUrl = "correct"),
-                firstIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "firstIncorrect"),
-                secondIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "secondIncorrect"),
-                thirdIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "thirdIncorrect"),
-                onSuccess = { onSuccessCalled = true },
-                onFailure = { onFailureCalled = true },
-                onContinue = { onContinueCalled = true }
+                playAudio = {},
+                correctWord = TestUtil.createWord(
+                    definitionOne = "definitionOne",
+                    definitionTwo = "definitionTwo",
+                    definitionThree = "definitionThree"
+                ),
+                firstIncorrectWord = TestUtil.createWord(),
+                secondIncorrectWord = TestUtil.createWord(),
+                thirdIncorrectWord = TestUtil.createWord(),
+                onSuccess = {},
+                onFailure = {},
+                onContinue = {}
             )
         }
 
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentAudioButton",
+            testTag = "DefinitionToMultiWordContentDefinition",
             useUnmergedTree = true
-        ).assertHasClickAction().performClick()
-
-        assert(audioUrl == "correct")
-        assert(!onSuccessCalled)
-        assert(!onFailureCalled)
-        assert(!onContinueCalled)
+        ).assertTextEquals("definitionOne")
     }
 
     @Test
     fun correctWordClicked_SubmitButtonClicked_OnSuccessCalled() {
-        var audioUrl: String? = null
         var onSuccessCalled = false
         var onFailureCalled = false
         var onContinueCalled = false
         composeTestRule.setContent {
-            AudioToMultiWordContent(
+            DefinitionToMultiWordContent(
                 contentPadding = PaddingValues(),
-                playAudio = { audioUrl = it },
-                correctWord = TestUtil.createWord(phoneticAudioUrl = "correct"),
-                firstIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "firstIncorrect"),
-                secondIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "secondIncorrect"),
-                thirdIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "thirdIncorrect"),
+                playAudio = {},
+                correctWord = TestUtil.createWord(
+                    definitionOne = "definitionOne",
+                    definitionTwo = "definitionTwo",
+                    definitionThree = "definitionThree"
+                ),
+                firstIncorrectWord = TestUtil.createWord(),
+                secondIncorrectWord = TestUtil.createWord(),
+                thirdIncorrectWord = TestUtil.createWord(),
                 onSuccess = { onSuccessCalled = true },
                 onFailure = { onFailureCalled = true },
                 onContinue = { onContinueCalled = true }
@@ -121,18 +119,17 @@ class AudioToMultiWordContentTests {
         }
 
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentWordCard#0",
+            testTag = "DefinitionToMultiWordContentWordCard#0",
             useUnmergedTree = true
         ).assertHasClickAction().performClick()
 
         composeTestRule.mainClock.advanceTimeBy(1000)
 
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentSubmitButton",
+            testTag = "DefinitionToMultiWordContentSubmitButton",
             useUnmergedTree = true
-        ).assertIsEnabled().assertHasClickAction().performClick()
+        ).assertHasClickAction().performClick()
 
-        assert(audioUrl == null)
         assert(onSuccessCalled)
         assert(!onFailureCalled)
         assert(!onContinueCalled)
@@ -140,18 +137,21 @@ class AudioToMultiWordContentTests {
 
     @Test
     fun firstIncorrectWordClicked_SubmitButtonClicked_OnFailureCalled() {
-        var audioUrl: String? = null
         var onSuccessCalled = false
         var onFailureCalled = false
         var onContinueCalled = false
         composeTestRule.setContent {
-            AudioToMultiWordContent(
+            DefinitionToMultiWordContent(
                 contentPadding = PaddingValues(),
-                playAudio = { audioUrl = it },
-                correctWord = TestUtil.createWord(phoneticAudioUrl = "correct"),
-                firstIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "firstIncorrect"),
-                secondIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "secondIncorrect"),
-                thirdIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "thirdIncorrect"),
+                playAudio = {},
+                correctWord = TestUtil.createWord(
+                    definitionOne = "definitionOne",
+                    definitionTwo = "definitionTwo",
+                    definitionThree = "definitionThree"
+                ),
+                firstIncorrectWord = TestUtil.createWord(),
+                secondIncorrectWord = TestUtil.createWord(),
+                thirdIncorrectWord = TestUtil.createWord(),
                 onSuccess = { onSuccessCalled = true },
                 onFailure = { onFailureCalled = true },
                 onContinue = { onContinueCalled = true }
@@ -159,18 +159,17 @@ class AudioToMultiWordContentTests {
         }
 
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentWordCard#1",
+            testTag = "DefinitionToMultiWordContentWordCard#1",
             useUnmergedTree = true
         ).assertHasClickAction().performClick()
 
         composeTestRule.mainClock.advanceTimeBy(1000)
 
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentSubmitButton",
+            testTag = "DefinitionToMultiWordContentSubmitButton",
             useUnmergedTree = true
-        ).assertIsEnabled().assertHasClickAction().performClick()
+        ).assertHasClickAction().performClick()
 
-        assert(audioUrl == null)
         assert(!onSuccessCalled)
         assert(onFailureCalled)
         assert(!onContinueCalled)
@@ -178,18 +177,21 @@ class AudioToMultiWordContentTests {
 
     @Test
     fun secondIncorrectWordClicked_SubmitButtonClicked_OnFailureCalled() {
-        var audioUrl: String? = null
         var onSuccessCalled = false
         var onFailureCalled = false
         var onContinueCalled = false
         composeTestRule.setContent {
-            AudioToMultiWordContent(
+            DefinitionToMultiWordContent(
                 contentPadding = PaddingValues(),
-                playAudio = { audioUrl = it },
-                correctWord = TestUtil.createWord(phoneticAudioUrl = "correct"),
-                firstIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "firstIncorrect"),
-                secondIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "secondIncorrect"),
-                thirdIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "thirdIncorrect"),
+                playAudio = {},
+                correctWord = TestUtil.createWord(
+                    definitionOne = "definitionOne",
+                    definitionTwo = "definitionTwo",
+                    definitionThree = "definitionThree"
+                ),
+                firstIncorrectWord = TestUtil.createWord(),
+                secondIncorrectWord = TestUtil.createWord(),
+                thirdIncorrectWord = TestUtil.createWord(),
                 onSuccess = { onSuccessCalled = true },
                 onFailure = { onFailureCalled = true },
                 onContinue = { onContinueCalled = true }
@@ -197,18 +199,17 @@ class AudioToMultiWordContentTests {
         }
 
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentWordCard#2",
+            testTag = "DefinitionToMultiWordContentWordCard#2",
             useUnmergedTree = true
         ).assertHasClickAction().performClick()
 
         composeTestRule.mainClock.advanceTimeBy(1000)
 
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentSubmitButton",
+            testTag = "DefinitionToMultiWordContentSubmitButton",
             useUnmergedTree = true
-        ).assertIsEnabled().assertHasClickAction().performClick()
+        ).assertHasClickAction().performClick()
 
-        assert(audioUrl == null)
         assert(!onSuccessCalled)
         assert(onFailureCalled)
         assert(!onContinueCalled)
@@ -216,18 +217,21 @@ class AudioToMultiWordContentTests {
 
     @Test
     fun thirdIncorrectWordClicked_SubmitButtonClicked_OnFailureCalled() {
-        var audioUrl: String? = null
         var onSuccessCalled = false
         var onFailureCalled = false
         var onContinueCalled = false
         composeTestRule.setContent {
-            AudioToMultiWordContent(
+            DefinitionToMultiWordContent(
                 contentPadding = PaddingValues(),
-                playAudio = { audioUrl = it },
-                correctWord = TestUtil.createWord(phoneticAudioUrl = "correct"),
-                firstIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "firstIncorrect"),
-                secondIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "secondIncorrect"),
-                thirdIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "thirdIncorrect"),
+                playAudio = {},
+                correctWord = TestUtil.createWord(
+                    definitionOne = "definitionOne",
+                    definitionTwo = "definitionTwo",
+                    definitionThree = "definitionThree"
+                ),
+                firstIncorrectWord = TestUtil.createWord(),
+                secondIncorrectWord = TestUtil.createWord(),
+                thirdIncorrectWord = TestUtil.createWord(),
                 onSuccess = { onSuccessCalled = true },
                 onFailure = { onFailureCalled = true },
                 onContinue = { onContinueCalled = true }
@@ -235,18 +239,17 @@ class AudioToMultiWordContentTests {
         }
 
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentWordCard#3",
+            testTag = "DefinitionToMultiWordContentWordCard#3",
             useUnmergedTree = true
         ).assertHasClickAction().performClick()
 
         composeTestRule.mainClock.advanceTimeBy(1000)
 
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentSubmitButton",
+            testTag = "DefinitionToMultiWordContentSubmitButton",
             useUnmergedTree = true
-        ).assertIsEnabled().assertHasClickAction().performClick()
+        ).assertHasClickAction().performClick()
 
-        assert(audioUrl == null)
         assert(!onSuccessCalled)
         assert(onFailureCalled)
         assert(!onContinueCalled)
@@ -254,18 +257,21 @@ class AudioToMultiWordContentTests {
 
     @Test
     fun successfulSubmit_SubmitButtonClickedAgain_OnContinueCalled() {
-        var audioUrl: String? = null
         var onSuccessCalled = false
         var onFailureCalled = false
         var onContinueCalled = false
         composeTestRule.setContent {
-            AudioToMultiWordContent(
+            DefinitionToMultiWordContent(
                 contentPadding = PaddingValues(),
-                playAudio = { audioUrl = it },
-                correctWord = TestUtil.createWord(phoneticAudioUrl = "correct"),
-                firstIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "firstIncorrect"),
-                secondIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "secondIncorrect"),
-                thirdIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "thirdIncorrect"),
+                playAudio = {},
+                correctWord = TestUtil.createWord(
+                    definitionOne = "definitionOne",
+                    definitionTwo = "definitionTwo",
+                    definitionThree = "definitionThree"
+                ),
+                firstIncorrectWord = TestUtil.createWord(),
+                secondIncorrectWord = TestUtil.createWord(),
+                thirdIncorrectWord = TestUtil.createWord(),
                 onSuccess = { onSuccessCalled = true },
                 onFailure = { onFailureCalled = true },
                 onContinue = { onContinueCalled = true }
@@ -273,18 +279,17 @@ class AudioToMultiWordContentTests {
         }
 
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentWordCard#0",
+            testTag = "DefinitionToMultiWordContentWordCard#0",
             useUnmergedTree = true
         ).assertHasClickAction().performClick()
 
         composeTestRule.mainClock.advanceTimeBy(1000)
 
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentSubmitButton",
+            testTag = "DefinitionToMultiWordContentSubmitButton",
             useUnmergedTree = true
-        ).assertIsEnabled().assertHasClickAction().performClick().performClick()
+        ).assertHasClickAction().performClick().performClick()
 
-        assert(audioUrl == null)
         assert(onSuccessCalled)
         assert(!onFailureCalled)
         assert(onContinueCalled)
@@ -292,18 +297,21 @@ class AudioToMultiWordContentTests {
 
     @Test
     fun failureSubmit_SubmitButtonClickedAgain_OnContinueCalled() {
-        var audioUrl: String? = null
         var onSuccessCalled = false
         var onFailureCalled = false
         var onContinueCalled = false
         composeTestRule.setContent {
-            AudioToMultiWordContent(
+            DefinitionToMultiWordContent(
                 contentPadding = PaddingValues(),
-                playAudio = { audioUrl = it },
-                correctWord = TestUtil.createWord(phoneticAudioUrl = "correct"),
-                firstIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "firstIncorrect"),
-                secondIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "secondIncorrect"),
-                thirdIncorrectWord = TestUtil.createWord(phoneticAudioUrl = "thirdIncorrect"),
+                playAudio = {},
+                correctWord = TestUtil.createWord(
+                    definitionOne = "definitionOne",
+                    definitionTwo = "definitionTwo",
+                    definitionThree = "definitionThree"
+                ),
+                firstIncorrectWord = TestUtil.createWord(),
+                secondIncorrectWord = TestUtil.createWord(),
+                thirdIncorrectWord = TestUtil.createWord(),
                 onSuccess = { onSuccessCalled = true },
                 onFailure = { onFailureCalled = true },
                 onContinue = { onContinueCalled = true }
@@ -311,18 +319,17 @@ class AudioToMultiWordContentTests {
         }
 
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentWordCard#1",
+            testTag = "DefinitionToMultiWordContentWordCard#1",
             useUnmergedTree = true
         ).assertHasClickAction().performClick()
 
         composeTestRule.mainClock.advanceTimeBy(1000)
 
         composeTestRule.onNodeWithTag(
-            testTag = "AudioToMultiWordContentSubmitButton",
+            testTag = "DefinitionToMultiWordContentSubmitButton",
             useUnmergedTree = true
-        ).assertIsEnabled().assertHasClickAction().performClick().performClick()
+        ).assertHasClickAction().performClick().performClick()
 
-        assert(audioUrl == null)
         assert(!onSuccessCalled)
         assert(onFailureCalled)
         assert(onContinueCalled)
