@@ -177,6 +177,7 @@ fun DefinitionToWordContent(
                     enter = fadeIn()
                 ) {
                     WordCard(
+                        modifier = Modifier,
                         word = word,
                         displayLanguageLevel = false,
                         displayAudio = true,

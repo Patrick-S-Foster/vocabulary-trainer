@@ -86,6 +86,7 @@ fun DefinitionToMultiWordContent(
 
                 ordering.withIndex().forEach {
                     WordCard(
+                        modifier = Modifier,
                         word = when (it.value) {
                             0 -> correctWord
                             1 -> firstIncorrectWord

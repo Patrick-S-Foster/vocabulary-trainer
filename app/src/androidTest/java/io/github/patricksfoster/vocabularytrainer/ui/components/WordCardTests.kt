@@ -1,5 +1,6 @@
 package io.github.patricksfoster.vocabularytrainer.ui.components
 
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.doubleClick
@@ -20,6 +21,7 @@ class WordCardTests {
     fun displayLanguageLevel_DisplayAudio_EverythingVisibleExceptDialog() {
         composeTestRule.setContent {
             WordCard(
+                modifier = Modifier,
                 word = TestUtil.createWord(phoneticAudioUrl = "URL"),
                 displayLanguageLevel = true,
                 displayAudio = true,
@@ -63,6 +65,7 @@ class WordCardTests {
     fun displayLanguageLevel_DoNotDisplayAudio_EverythingVisibleExceptDialogAndAudioButton() {
         composeTestRule.setContent {
             WordCard(
+                modifier = Modifier,
                 word = TestUtil.createWord(phoneticAudioUrl = "URL"),
                 displayLanguageLevel = true,
                 displayAudio = false,
@@ -106,6 +109,7 @@ class WordCardTests {
     fun doNotDisplayLanguageLevel_displayAudio_EverythingVisibleExceptDialogAndLanguageLevel() {
         composeTestRule.setContent {
             WordCard(
+                modifier = Modifier,
                 word = TestUtil.createWord(phoneticAudioUrl = "URL"),
                 displayLanguageLevel = false,
                 displayAudio = true,
@@ -150,6 +154,7 @@ class WordCardTests {
         var playAudioValue: String? = null
         composeTestRule.setContent {
             WordCard(
+                modifier = Modifier,
                 word = TestUtil.createWord(phoneticAudioUrl = "URL"),
                 displayLanguageLevel = true,
                 displayAudio = true,
@@ -172,6 +177,7 @@ class WordCardTests {
         var onSelectedCalled = false
         composeTestRule.setContent {
             WordCard(
+                modifier = Modifier,
                 word = TestUtil.createWord(phoneticAudioUrl = "URL"),
                 displayLanguageLevel = true,
                 displayAudio = true,
@@ -196,6 +202,7 @@ class WordCardTests {
         var onSelectedCalled = false
         composeTestRule.setContent {
             WordCard(
+                modifier = Modifier,
                 word = TestUtil.createWord(phoneticAudioUrl = "URL"),
                 displayLanguageLevel = true,
                 displayAudio = true,
@@ -219,6 +226,7 @@ class WordCardTests {
     fun longClickWordCardWhileSelectable_DialogDisplayed() {
         composeTestRule.setContent {
             WordCard(
+                modifier = Modifier,
                 word = TestUtil.createWord(phoneticAudioUrl = "URL"),
                 displayLanguageLevel = true,
                 displayAudio = true,
@@ -245,6 +253,7 @@ class WordCardTests {
     fun doubleClickWordCardWhileSelectable_DialogDisplayed() {
         composeTestRule.setContent {
             WordCard(
+                modifier = Modifier,
                 word = TestUtil.createWord(phoneticAudioUrl = "URL"),
                 displayLanguageLevel = true,
                 displayAudio = true,
@@ -271,6 +280,7 @@ class WordCardTests {
     fun doubleClickWordCardWhileSelectable_ButNothingToShow_DialogNotDisplayed() {
         composeTestRule.setContent {
             WordCard(
+                modifier = Modifier,
                 word = TestUtil.createWord(),
                 displayLanguageLevel = true,
                 displayAudio = true,
@@ -297,6 +307,7 @@ class WordCardTests {
     fun longClickWordCardWhileSelectable_ButNothingToShow_DialogNotDisplayed() {
         composeTestRule.setContent {
             WordCard(
+                modifier = Modifier,
                 word = TestUtil.createWord(),
                 displayLanguageLevel = true,
                 displayAudio = true,

@@ -109,7 +109,8 @@ fun DictionaryContent(
             ) {
                 items(words) {
                     WordCard(
-                        it,
+                        modifier = Modifier,
+                        word = it,
                         displayLanguageLevel = true,
                         displayAudio = true,
                         displayDefinitions = true,

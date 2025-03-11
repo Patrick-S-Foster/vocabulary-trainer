@@ -40,6 +40,7 @@ import io.github.patricksfoster.vocabularytrainer.ui.dialogs.WordDialog
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun WordCard(
+    modifier: Modifier,
     word: Word?,
     displayLanguageLevel: Boolean,
     displayAudio: Boolean,
@@ -80,7 +81,7 @@ fun WordCard(
     )
 
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .combinedClickable(
                 onDoubleClick = {
