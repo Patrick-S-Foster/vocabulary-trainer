@@ -1,5 +1,6 @@
 package io.github.patricksfoster.vocabularytrainer.ui.dialogs
 
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
@@ -17,6 +18,7 @@ class ConfirmDialogTests {
     fun allVisible() {
         composeTestRule.setContent {
             ConfirmDialog(
+                modifier = Modifier,
                 title = "TITLE",
                 body = "BODY",
                 onCancel = {},
@@ -58,6 +60,7 @@ class ConfirmDialogTests {
     fun titleIsDisplayed() {
         composeTestRule.setContent {
             ConfirmDialog(
+                modifier = Modifier,
                 title = "TITLE",
                 body = "BODY",
                 onCancel = {},
@@ -75,6 +78,7 @@ class ConfirmDialogTests {
     fun bodyIsDisplayed() {
         composeTestRule.setContent {
             ConfirmDialog(
+                modifier = Modifier,
                 title = "TITLE",
                 body = "BODY",
                 onCancel = {},
@@ -94,6 +98,7 @@ class ConfirmDialogTests {
         var onConfirmCalled = false
         composeTestRule.setContent {
             ConfirmDialog(
+                modifier = Modifier,
                 title = "TITLE",
                 body = "BODY",
                 onCancel = { onCancelCalled = true },
@@ -116,6 +121,7 @@ class ConfirmDialogTests {
         var onConfirmCalled = false
         composeTestRule.setContent {
             ConfirmDialog(
+                modifier = Modifier,
                 title = "TITLE",
                 body = "BODY",
                 onCancel = { onCancelCalled = true },
@@ -138,6 +144,7 @@ class ConfirmDialogTests {
         var onConfirmCalled = false
         composeTestRule.setContent {
             ConfirmDialog(
+                modifier = Modifier,
                 title = "TITLE",
                 body = "BODY",
                 onCancel = { onCancelCalled = true },

@@ -27,10 +27,16 @@ import com.example.vocabularytrainer.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConfirmDialog(title: String, body: String, onCancel: () -> Unit, onConfirm: () -> Unit) {
+fun ConfirmDialog(
+    modifier: Modifier,
+    title: String,
+    body: String,
+    onCancel: () -> Unit,
+    onConfirm: () -> Unit
+) {
     BasicAlertDialog(onDismissRequest = onCancel) {
         Card(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .testTag("ConfirmDialogCard"),
             border = BorderStroke(

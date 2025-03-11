@@ -23,7 +23,7 @@ import org.junit.Test
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 
-private class LifecycleOwnerRule : TestWatcher() {
+internal class LifecycleOwnerRule : TestWatcher() {
 
     val lifecycleOwner: LifecycleOwner = object : LifecycleOwner {
         override val lifecycle: Lifecycle get() = lifecycleRegistry
