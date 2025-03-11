@@ -1,0 +1,124 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "2d4ca7e81c6de8954521c1d94cf9633f",
+    "entities": [
+      {
+        "tableName": "Word",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`category` TEXT NOT NULL, `word` TEXT NOT NULL, `phonetic_text` TEXT NOT NULL, `phonetic_audio_url` TEXT, `phonetic_audio_source_url` TEXT, `phonetic_audio_license_name` TEXT, `phonetic_audio_license_url` TEXT, `definition_one` TEXT NOT NULL, `definition_two` TEXT, `definition_three` TEXT, `definition_word_source_url` TEXT, `definition_word_license_name` TEXT, `definition_word_license_url` TEXT, `study_state` INTEGER NOT NULL, `word_of_the_day_date` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
+        "fields": [
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "word",
+            "columnName": "word",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "phoneticText",
+            "columnName": "phonetic_text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "phoneticAudioUrl",
+            "columnName": "phonetic_audio_url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "phoneticAudioSourceUrl",
+            "columnName": "phonetic_audio_source_url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "phoneticAudioLicenseName",
+            "columnName": "phonetic_audio_license_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "phoneticAudioLicenseUrl",
+            "columnName": "phonetic_audio_license_url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "definitionOne",
+            "columnName": "definition_one",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "definitionTwo",
+            "columnName": "definition_two",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "definitionThree",
+            "columnName": "definition_three",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "definitionWordSourceUrl",
+            "columnName": "definition_word_source_url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "definitionWordLicenseName",
+            "columnName": "definition_word_license_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "definitionWordLicenseUrl",
+            "columnName": "definition_word_license_url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "studyState",
+            "columnName": "study_state",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wordOfTheDayDate",
+            "columnName": "word_of_the_day_date",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2d4ca7e81c6de8954521c1d94cf9633f')"
+    ]
+  }
+}
