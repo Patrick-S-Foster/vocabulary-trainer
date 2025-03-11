@@ -21,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.LinkAnnotation
@@ -50,7 +51,10 @@ fun WordDialog(
     displayAudio: Boolean,
     onDismissRequest: () -> Unit
 ) {
-    BasicAlertDialog(onDismissRequest = onDismissRequest) {
+    BasicAlertDialog(
+        onDismissRequest = onDismissRequest,
+        modifier = Modifier.testTag("WordDialogAlertDialog")
+    ) {
         Card(
             modifier = modifier.fillMaxWidth(),
             border = BorderStroke(
@@ -72,11 +76,15 @@ fun WordDialog(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
+                        modifier = Modifier.testTag("WordDialogTitle"),
                         text = word.word,
                         style = MaterialTheme.typography.titleLarge
                     )
 
-                    IconButton(onClick = onDismissRequest) {
+                    IconButton(
+                        onClick = onDismissRequest,
+                        modifier = Modifier.testTag("WordDialogCloseButton")
+                    ) {
                         Icon(
                             imageVector = Icons.Filled.Close,
                             contentDescription = stringResource(R.string.dialog_button_close_content_description)
@@ -109,7 +117,8 @@ fun WordDialog(
                             item {
                                 Text(
                                     text = definition,
-                                    style = MaterialTheme.typography.bodyLarge
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    modifier = Modifier.testTag("WordDialogDefinition#$index")
                                 )
                             }
                         }
@@ -122,6 +131,7 @@ fun WordDialog(
                     word.definitionWordLicenseName != null
                 ) {
                     Text(
+                        modifier = Modifier.testTag("WordDialogDefinitionCredit"),
                         text = buildAnnotatedString {
                             append(stringResource(R.string.word_dialog_definitions_part_1))
                             append(' ')
@@ -156,6 +166,7 @@ fun WordDialog(
                     word.phoneticAudioLicenseName != null
                 ) {
                     Text(
+                        modifier = Modifier.testTag("WordDialogAudioCredit"),
                         text = buildAnnotatedString {
                             append(stringResource(R.string.word_dialog_audio_part_1))
                             append(' ')
