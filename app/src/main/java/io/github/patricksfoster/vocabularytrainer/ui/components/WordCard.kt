@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.core.graphics.ColorUtils
@@ -39,6 +40,7 @@ import io.github.patricksfoster.vocabularytrainer.ui.dialogs.WordDialog
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun WordCard(
+    modifier: Modifier,
     word: Word?,
     displayLanguageLevel: Boolean,
     displayAudio: Boolean,
@@ -79,7 +81,7 @@ fun WordCard(
     )
 
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .combinedClickable(
                 onDoubleClick = {
@@ -92,7 +94,8 @@ fun WordCard(
                 if (selectable) {
                     onSelected()
                 }
-            },
+            }
+            .testTag("WordCardCard"),
         border = BorderStroke(borderWidth, borderColor),
         colors = CardDefaults.cardColors(containerColor = containerColor)
     ) {
@@ -121,7 +124,8 @@ fun WordCard(
                                         color = circleColor,
                                         radius = this.size.maxDimension
                                     )
-                                },
+                                }
+                                .testTag("WordCardLanguageLevel"),
                             text = it,
                             style = MaterialTheme.typography.titleMedium,
                             color = MaterialTheme.colorScheme.onPrimary
@@ -129,19 +133,28 @@ fun WordCard(
                     }
                 }
                 Column(verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.word_card_word_phonetic_spacing))) {
-                    Text(text = word?.word ?: "", style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        text = word?.word ?: "",
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.testTag("WordCardWord")
+                    )
                     Text(
                         text = word?.phoneticText ?: "",
-                        style = MaterialTheme.typography.bodySmall
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.testTag("WordCardPhonetic")
                     )
                 }
             }
             if (displayAudio) {
                 word?.phoneticAudioUrl?.let {
-                    FilledIconButton(onClick = { playAudio(it) }) {
+                    FilledIconButton(
+                        onClick = { playAudio(it) },
+                        modifier = Modifier.testTag("WordCardAudioButton")
+                    ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.VolumeUp,
-                            contentDescription = stringResource(R.string.pronunciation_content_description)
+                            contentDescription = stringResource(R.string.pronunciation_content_description),
+                            modifier = Modifier.testTag("WordCardAudioIcon")
                         )
                     }
                 }
@@ -150,7 +163,7 @@ fun WordCard(
     }
 
     if (dialogOpen && canOpenWordDialog(word, displayDefinitions, displayAudio)) {
-        WordDialog(word!!, displayDefinitions, displayAudio) {
+        WordDialog(Modifier.testTag("WordCardDialog"), word!!, displayDefinitions, displayAudio) {
             dialogOpen = false
         }
     }

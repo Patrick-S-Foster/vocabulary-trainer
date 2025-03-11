@@ -36,6 +36,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -93,9 +94,11 @@ fun DefinitionToWordContent(
                         SearchBar(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .semantics { traversalIndex = 0f },
+                                .semantics { traversalIndex = 0f }
+                                .testTag("DefinitionToWordContentSearchBar"),
                             inputField = {
                                 SearchBarDefaults.InputField(
+                                    modifier = Modifier.testTag("DefinitionToWordContentInputField"),
                                     query = text,
                                     onQueryChange = { text = it },
                                     onSearch = { submit() },
@@ -107,7 +110,9 @@ fun DefinitionToWordContent(
                                             Icon(
                                                 imageVector = Icons.AutoMirrored.Outlined.Send,
                                                 contentDescription = null,
-                                                modifier = Modifier.clickable { submit() }
+                                                modifier = Modifier
+                                                    .clickable { submit() }
+                                                    .testTag("DefinitionToWordContentSearchBarIcon")
                                             )
                                         }
                                     }
@@ -121,7 +126,8 @@ fun DefinitionToWordContent(
                         HorizontalDivider(
                             modifier = Modifier
                                 .padding(horizontal = dimensionResource(R.dimen.divider_horizontal_padding))
-                                .fillMaxWidth(),
+                                .fillMaxWidth()
+                                .testTag("DefinitionToWordContentDivider"),
                             thickness = dimensionResource(R.dimen.divider_thickness)
                         )
 
@@ -156,12 +162,15 @@ fun DefinitionToWordContent(
                                         val displayIndex = it.index + 1
 
                                         Text(
-                                            modifier = Modifier.wrapContentWidth(),
+                                            modifier = Modifier
+                                                .wrapContentWidth()
+                                                .testTag("DefinitionToWordContentDefinitionLabel#${it.index}"),
                                             text = "$displayIndex.",
                                             style = MaterialTheme.typography.titleLarge
                                         )
 
                                         Text(
+                                            modifier = Modifier.testTag("DefinitionToWordContentDefinition#${it.index}"),
                                             text = it.value,
                                             style = MaterialTheme.typography.titleLarge
                                         )
@@ -177,6 +186,7 @@ fun DefinitionToWordContent(
                     enter = fadeIn()
                 ) {
                     WordCard(
+                        modifier = Modifier.testTag("DefinitionToWordContentWordCard"),
                         word = word,
                         displayLanguageLevel = false,
                         displayAudio = true,
@@ -206,9 +216,13 @@ fun DefinitionToWordContent(
                 enter = fadeIn()
             ) {
                 Button(
+                    modifier = Modifier.testTag("DefinitionToWordContentContinueButton"),
                     onClick = onContinue,
                 ) {
-                    Text(text = stringResource(R.string.learning_content_button_continue))
+                    Text(
+                        modifier = Modifier.testTag("DefinitionToWordContentContinueButtonText"),
+                        text = stringResource(R.string.learning_content_button_continue)
+                    )
                 }
             }
         }

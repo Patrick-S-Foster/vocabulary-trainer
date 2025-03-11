@@ -16,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.vocabularytrainer.R
@@ -31,37 +32,50 @@ fun CenterAlignedTopBar(
 ) {
     var dialogOpen by rememberSaveable { mutableStateOf(false) }
 
-    CenterAlignedTopAppBar(
-        title = { Text(title) },
-        modifier = modifier,
+    CenterAlignedTopAppBar(title = {
+        Text(
+            text = title,
+            modifier = Modifier.testTag("CenterAlignedTopAppBarTitle")
+        )
+    },
+        modifier = modifier.testTag("CenterAlignedTopAppBar"),
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
         ),
         navigationIcon = {
             if (canNavigateBack) {
-                IconButton(onClick = navigateUp) {
+                IconButton(
+                    onClick = navigateUp,
+                    modifier = Modifier.testTag("BackIconButton")
+                ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(R.string.center_aligned_top_bar_back_content_description)
+                        contentDescription = stringResource(R.string.center_aligned_top_bar_back_content_description),
+                        modifier = Modifier.testTag("BackIcon")
                     )
                 }
             }
         },
         actions = {
             if (!canNavigateBack) {
-                IconButton(onClick = { dialogOpen = true }) {
+                IconButton(
+                    onClick = { dialogOpen = true },
+                    modifier = Modifier.testTag("InfoIconButton")
+                ) {
                     Icon(
                         imageVector = Icons.Outlined.Info,
-                        contentDescription = stringResource(R.string.center_aligned_top_bar_info_content_description)
+                        contentDescription = stringResource(R.string.center_aligned_top_bar_info_content_description),
+                        modifier = Modifier.testTag("InfoIcon")
                     )
                 }
             }
-        }
-    )
+        })
 
     if (dialogOpen) {
-        InformationDialog { dialogOpen = false }
+        InformationDialog(modifier = Modifier.testTag("InformationDialog")) {
+            dialogOpen = false
+        }
     }
 }
 

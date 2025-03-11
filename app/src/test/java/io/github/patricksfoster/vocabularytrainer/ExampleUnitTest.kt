@@ -1,4 +1,4 @@
-package com.example.vocabularytrainer
+package io.github.patricksfoster.vocabularytrainer
 
 import org.junit.Test
 

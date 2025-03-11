@@ -154,6 +154,7 @@ class MainActivity : ComponentActivity() {
 
                     if (dialogOpen) {
                         ConfirmDialog(
+                            modifier = Modifier,
                             title = stringResource(R.string.confirm_stop_training_dialog_title),
                             body = stringResource(R.string.confirm_stop_training_dialog_body),
                             onCancel = {

@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.vocabularytrainer.R
@@ -25,12 +26,13 @@ fun LanguageProgressIndicator(
 ) {
     val progress = if (totalCount == 0) 0F else completedCount.toFloat() / totalCount.toFloat()
 
-    Box(modifier = modifier) {
+    Box(modifier = modifier.testTag("LanguageProgressIndicatorBox")) {
         CircularProgressIndicator(
             modifier = Modifier
                 .aspectRatio(1F)
                 .fillMaxSize()
-                .align(Alignment.Center),
+                .align(Alignment.Center)
+                .testTag("LanguageProgressIndicatorCircularIndicator"),
             progress = { progress },
             strokeWidth = dimensionResource(R.dimen.language_progress_indicator_stroke_width),
             gapSize = dimensionResource(R.dimen.language_progress_indicator_gap_size),
@@ -42,11 +44,13 @@ fun LanguageProgressIndicator(
         ) {
             Text(
                 text = languageLevel.title,
-                style = MaterialTheme.typography.headlineMedium
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.testTag("LanguageProgressIndicatorTitle")
             )
             Text(
                 text = "$completedCount/$totalCount",
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.testTag("LanguageProgressIndicatorBody")
             )
         }
     }

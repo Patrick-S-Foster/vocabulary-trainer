@@ -20,16 +20,25 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import com.example.vocabularytrainer.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConfirmDialog(title: String, body: String, onCancel: () -> Unit, onConfirm: () -> Unit) {
+fun ConfirmDialog(
+    modifier: Modifier,
+    title: String,
+    body: String,
+    onCancel: () -> Unit,
+    onConfirm: () -> Unit
+) {
     BasicAlertDialog(onDismissRequest = onCancel) {
         Card(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = modifier
+                .fillMaxWidth()
+                .testTag("ConfirmDialogCard"),
             border = BorderStroke(
                 dimensionResource(R.dimen.card_border_width),
                 MaterialTheme.colorScheme.outline
@@ -49,12 +58,17 @@ fun ConfirmDialog(title: String, body: String, onCancel: () -> Unit, onConfirm: 
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
+                        modifier = Modifier.testTag("ConfirmDialogTitle"),
                         text = title,
                         style = MaterialTheme.typography.titleLarge
                     )
 
-                    IconButton(onClick = onCancel) {
+                    IconButton(
+                        onClick = onCancel,
+                        modifier = Modifier.testTag("ConfirmDialogCloseButton")
+                    ) {
                         Icon(
+                            modifier = Modifier.testTag("ConfirmDialogCloseButtonIcon"),
                             imageVector = Icons.Filled.Close,
                             contentDescription = stringResource(R.string.dialog_button_close_content_description)
                         )
@@ -62,6 +76,7 @@ fun ConfirmDialog(title: String, body: String, onCancel: () -> Unit, onConfirm: 
                 }
 
                 Text(
+                    modifier = Modifier.testTag("ConfirmDialogBodyText"),
                     text = body,
                     style = MaterialTheme.typography.bodyLarge
                 )
@@ -73,11 +88,17 @@ fun ConfirmDialog(title: String, body: String, onCancel: () -> Unit, onConfirm: 
                         Alignment.End
                     ),
                 ) {
-                    TextButton(onClick = onCancel) {
+                    TextButton(
+                        modifier = Modifier.testTag("ConfirmDialogCancelButton"),
+                        onClick = onCancel
+                    ) {
                         Text(stringResource(R.string.confirm_dialog_cancel))
                     }
 
-                    FilledTonalButton(onClick = onConfirm) {
+                    FilledTonalButton(
+                        modifier = Modifier.testTag("ConfirmDialogOkButton"),
+                        onClick = onConfirm
+                    ) {
                         Text(stringResource(R.string.confirm_dialog_confirm))
                     }
                 }

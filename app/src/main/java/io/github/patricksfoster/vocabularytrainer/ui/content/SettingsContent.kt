@@ -31,6 +31,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -69,10 +70,12 @@ fun SettingsContent(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
+                    modifier = Modifier.testTag("SettingsContentSoundEffectsTitle"),
                     text = stringResource(R.string.settings_sound_effects),
                     style = MaterialTheme.typography.titleLarge
                 )
                 Switch(
+                    modifier = Modifier.testTag("SettingsContentSoundEffectsSwitch"),
                     checked = settings.soundEffectsEnabled.value,
                     onCheckedChange = { value -> settings.soundEffectsEnabled.value = value },
                     thumbContent = {
@@ -93,6 +96,7 @@ fun SettingsContent(
                 verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.settings_sub_item_spacing))
             ) {
                 Text(
+                    modifier = Modifier.testTag("SettingsContentThemeTitle"),
                     text = stringResource(R.string.settings_theme),
                     style = MaterialTheme.typography.titleLarge
                 )
@@ -112,13 +116,17 @@ fun SettingsContent(
                         Text(
                             text = it.first,
                             style = MaterialTheme.typography.titleMedium,
-                            modifier = Modifier.padding(start = dimensionResource(R.dimen.settings_sub_item_padding))
+                            modifier = Modifier
+                                .padding(start = dimensionResource(R.dimen.settings_sub_item_padding))
+                                .testTag("SettingsContentThemeText#${it.second}")
                         )
 
                         RadioButton(
                             selected = settings.themeState.value == it.second,
                             onClick = null,
-                            modifier = Modifier.padding(end = dimensionResource(R.dimen.settings_radio_button_padding))
+                            modifier = Modifier
+                                .padding(end = dimensionResource(R.dimen.settings_radio_button_padding))
+                                .testTag("SettingsContentThemeButton#${it.second}")
                         )
                     }
                 }
@@ -132,7 +140,9 @@ fun SettingsContent(
         item {
             Button(
                 onClick = { showDialog = true },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag("SettingsContentResetButton"),
                 colors = ButtonColors(
                     MaterialTheme.colorScheme.error,
                     MaterialTheme.colorScheme.onError,
@@ -147,6 +157,7 @@ fun SettingsContent(
 
     if (showDialog) {
         ConfirmDialog(
+            modifier = Modifier.testTag("SettingsContentConfirmDialog"),
             title = stringResource(R.string.confirm_reset_title),
             body = stringResource(R.string.confirm_reset_body),
             onCancel = { showDialog = false },

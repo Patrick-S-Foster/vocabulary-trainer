@@ -7,6 +7,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.vocabularytrainer.R
@@ -15,7 +16,9 @@ import com.example.vocabularytrainer.R
 fun TitledComposable(text: String, content: @Composable () -> Unit) {
     Column {
         HorizontalDivider(
-            modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.divider_horizontal_padding)),
+            modifier = Modifier
+                .padding(horizontal = dimensionResource(R.dimen.divider_horizontal_padding))
+                .testTag("TitledComposableDivider"),
             thickness = dimensionResource(R.dimen.divider_thickness)
         )
 
@@ -25,7 +28,8 @@ fun TitledComposable(text: String, content: @Composable () -> Unit) {
                     top = dimensionResource(R.dimen.titled_content_title_spacing),
                     bottom = dimensionResource(R.dimen.titled_content_content_spacing)
                 )
-                .padding(horizontal = dimensionResource(R.dimen.divider_horizontal_padding)),
+                .padding(horizontal = dimensionResource(R.dimen.divider_horizontal_padding))
+                .testTag("TitleComposableText"),
             text = text,
             style = MaterialTheme.typography.labelSmall
         )

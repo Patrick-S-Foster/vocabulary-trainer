@@ -34,6 +34,7 @@ fun HomeContent(
         item {
             TitledComposable(stringResource(R.string.word_of_the_day)) {
                 WordCard(
+                    modifier = Modifier,
                     word = wordOfTheDay,
                     displayLanguageLevel = true,
                     displayAudio = true,

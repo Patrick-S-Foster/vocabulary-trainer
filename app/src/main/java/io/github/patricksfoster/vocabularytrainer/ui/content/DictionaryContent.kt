@@ -26,6 +26,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.isTraversalGroup
@@ -64,9 +65,11 @@ fun DictionaryContent(
         SearchBar(
             modifier = Modifier
                 .align(Alignment.TopCenter)
-                .semantics { traversalIndex = 0f },
+                .semantics { traversalIndex = 0f }
+                .testTag("DictionaryContentSearchBar"),
             inputField = {
                 SearchBarDefaults.InputField(
+                    modifier = Modifier.testTag("DictionaryContentSearchBarInputField"),
                     query = text,
                     onQueryChange = { text = it },
                     onSearch = { },
@@ -84,14 +87,16 @@ fun DictionaryContent(
                             Icon(
                                 imageVector = Icons.Filled.Close,
                                 contentDescription = null,
-                                modifier = Modifier.clickable {
-                                    if (text.isNotEmpty()) {
-                                        text = ""
-                                        words.clear()
-                                    } else {
-                                        expanded = false
+                                modifier = Modifier
+                                    .clickable {
+                                        if (text.isNotEmpty()) {
+                                            text = ""
+                                            words.clear()
+                                        } else {
+                                            expanded = false
+                                        }
                                     }
-                                }
+                                    .testTag("DictionaryContentSearchBarTrailingIcon")
                             )
                         }
                     }
@@ -101,7 +106,9 @@ fun DictionaryContent(
             onExpandedChange = { expanded = it },
         ) {
             LazyColumn(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag("DictionaryContentExpandedContent"),
                 verticalArrangement = Arrangement.spacedBy(
                     dimensionResource(R.dimen.dictionary_items_spacing)
                 ),
@@ -109,7 +116,8 @@ fun DictionaryContent(
             ) {
                 items(words) {
                     WordCard(
-                        it,
+                        modifier = Modifier,
+                        word = it,
                         displayLanguageLevel = true,
                         displayAudio = true,
                         displayDefinitions = true,

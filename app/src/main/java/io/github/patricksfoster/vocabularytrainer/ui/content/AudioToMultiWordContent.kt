@@ -28,6 +28,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -72,12 +73,16 @@ fun AudioToMultiWordContent(
                     FilledIconButton(
                         onClick = { playAudio(correctWord.phoneticAudioUrl!!) },
                         shape = RoundedCornerShape(dimensionResource(R.dimen.learning_audio_button_corner_size)),
-                        modifier = Modifier.size(dimensionResource(R.dimen.learning_audio_button_size))
+                        modifier = Modifier
+                            .size(dimensionResource(R.dimen.learning_audio_button_size))
+                            .testTag("AudioToMultiWordContentAudioButton")
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.VolumeUp,
                             contentDescription = stringResource(R.string.pronunciation_content_description),
-                            modifier = Modifier.size(dimensionResource(R.dimen.learning_audio_button_icon_size))
+                            modifier = Modifier
+                                .size(dimensionResource(R.dimen.learning_audio_button_icon_size))
+                                .testTag("AudioToMultiWordContentAudioButtonIcon")
                         )
                     }
                 }
@@ -85,12 +90,14 @@ fun AudioToMultiWordContent(
                 HorizontalDivider(
                     modifier = Modifier
                         .padding(horizontal = dimensionResource(R.dimen.divider_horizontal_padding))
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .testTag("AudioToMultiWordContentDivider"),
                     thickness = dimensionResource(R.dimen.divider_thickness)
                 )
 
                 ordering.withIndex().forEach {
                     WordCard(
+                        modifier = Modifier.testTag("AudioToMultiWordContentWordCard#${it.value}"),
                         word = when (it.value) {
                             0 -> correctWord
                             1 -> firstIncorrectWord
@@ -131,6 +138,7 @@ fun AudioToMultiWordContent(
 
         item {
             Button(
+                modifier = Modifier.testTag("AudioToMultiWordContentSubmitButton"),
                 onClick = {
                     if (submit) {
                         if (ordering[selectedIndex] == 0) {
@@ -151,6 +159,7 @@ fun AudioToMultiWordContent(
                 enabled = selectedIndex != -1
             ) {
                 Text(
+                    modifier = Modifier.testTag("AudioToMultiWordContentSubmitButtonText"),
                     text =
                     if (submit) {
                         stringResource(R.string.learning_content_button_submit)

@@ -22,14 +22,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import com.example.vocabularytrainer.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InformationDialog(onDismissRequest: () -> Unit) {
-    BasicAlertDialog(onDismissRequest = onDismissRequest) {
+fun InformationDialog(modifier: Modifier, onDismissRequest: () -> Unit) {
+    BasicAlertDialog(
+        onDismissRequest = onDismissRequest,
+        modifier = modifier.testTag("InformationDialogAlertDialog")
+    ) {
         Card(
             modifier = Modifier.fillMaxWidth(),
             border = BorderStroke(
@@ -51,11 +55,15 @@ fun InformationDialog(onDismissRequest: () -> Unit) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
+                        modifier = Modifier.testTag("InformationDialogTitle"),
                         text = stringResource(R.string.information_dialog_credit_title),
                         style = MaterialTheme.typography.titleLarge
                     )
 
-                    IconButton(onClick = onDismissRequest) {
+                    IconButton(
+                        onClick = onDismissRequest,
+                        modifier = Modifier.testTag("InformationDialogCloseButton")
+                    ) {
                         Icon(
                             imageVector = Icons.Filled.Close,
                             contentDescription = stringResource(R.string.dialog_button_close_content_description)
@@ -64,6 +72,7 @@ fun InformationDialog(onDismissRequest: () -> Unit) {
                 }
 
                 Text(
+                    modifier = Modifier.testTag("InformationDialogOxfordBody"),
                     text = stringResource(R.string.information_dialog_oxford_body),
                     style = MaterialTheme.typography.bodyLarge
                 )
@@ -78,12 +87,16 @@ fun InformationDialog(onDismissRequest: () -> Unit) {
                     )
                     val context = LocalContext.current
 
-                    TextButton(onClick = { context.startActivity(intent) }) {
+                    TextButton(
+                        onClick = { context.startActivity(intent) },
+                        modifier = Modifier.testTag("InformationDialogOxfordButton")
+                    ) {
                         Text(text = stringResource(R.string.information_dialog_button_oxford_5000))
                     }
                 }
 
                 Text(
+                    modifier = Modifier.testTag("InformationDialogApiBody"),
                     text = stringResource(R.string.information_dialog_credit_body),
                     style = MaterialTheme.typography.bodyLarge
                 )
@@ -98,7 +111,10 @@ fun InformationDialog(onDismissRequest: () -> Unit) {
                     )
                     val context = LocalContext.current
 
-                    TextButton(onClick = { context.startActivity(intent) }) {
+                    TextButton(
+                        onClick = { context.startActivity(intent) },
+                        modifier = Modifier.testTag("InformationDialogApiButton")
+                    ) {
                         Text(text = stringResource(R.string.information_dialog_button_view_api))
                     }
                 }
