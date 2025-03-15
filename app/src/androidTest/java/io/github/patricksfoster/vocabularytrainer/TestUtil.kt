@@ -17,9 +17,9 @@ class TestUtil private constructor() {
             definitionOne: String = "This is a definition of the word 'word'.",
             definitionTwo: String? = null,
             definitionThree: String? = null,
-            definitionWordSourceUrl: String? = null,
-            definitionWordLicenseName: String? = null,
-            definitionWordLicenseUrl: String? = null,
+            definitionWordSourceUrl: String = "",
+            definitionWordLicenseName: String = "",
+            definitionWordLicenseUrl: String = "",
             studyState: Int = StudyState.NONE,
             wordOfTheDayDate: String? = null,
             id: Int? = null

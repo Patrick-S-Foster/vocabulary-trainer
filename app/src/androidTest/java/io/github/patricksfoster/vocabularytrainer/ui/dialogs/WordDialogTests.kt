@@ -127,59 +127,6 @@ class WordDialogTests {
     }
 
     @Test
-    fun displayDefinitions_DisplayAudio_ContainsDefinitions_DoesNotContainDefinitionsSource_ContainsAudioSource_SomeVisible() {
-        composeTestRule.setContent {
-            WordDialog(
-                modifier = Modifier,
-                word = TestUtil.createWord(
-                    definitionOne = "definitionOne",
-                    definitionTwo = "definitionTwo",
-                    definitionThree = "definitionThree",
-                    phoneticAudioSourceUrl = "phoneticAudioSourceUrl",
-                    phoneticAudioLicenseUrl = "phoneticAudioLicenseUrl",
-                    phoneticAudioLicenseName = "phoneticAudioLicenseName"
-                ),
-                displayDefinitions = true,
-                displayAudio = true,
-                onDismissRequest = {}
-            )
-        }
-
-        composeTestRule.onNodeWithTag(
-            testTag = "WordDialogAlertDialog",
-            useUnmergedTree = true
-        ).assertExists().assertIsDisplayed()
-        composeTestRule.onNodeWithTag(
-            testTag = "WordDialogTitle",
-            useUnmergedTree = true
-        ).assertExists().assertIsDisplayed()
-        composeTestRule.onNodeWithTag(
-            testTag = "WordDialogCloseButton",
-            useUnmergedTree = true
-        ).assertExists().assertIsDisplayed()
-        composeTestRule.onNodeWithTag(
-            testTag = "WordDialogDefinition#0",
-            useUnmergedTree = true
-        ).assertExists().assertIsDisplayed()
-        composeTestRule.onNodeWithTag(
-            testTag = "WordDialogDefinition#1",
-            useUnmergedTree = true
-        ).assertExists().assertIsDisplayed()
-        composeTestRule.onNodeWithTag(
-            testTag = "WordDialogDefinition#2",
-            useUnmergedTree = true
-        ).assertExists().assertIsDisplayed()
-        composeTestRule.onNodeWithTag(
-            testTag = "WordDialogDefinitionCredit",
-            useUnmergedTree = true
-        ).assertDoesNotExist()
-        composeTestRule.onNodeWithTag(
-            testTag = "WordDialogAudioCredit",
-            useUnmergedTree = true
-        ).assertExists().assertIsDisplayed()
-    }
-
-    @Test
     fun displayDefinitions_DoNotDisplayAudio_ContainsDefinitions_ContainsDefinitionsSource_ContainsAudioSource_SomeVisible() {
         composeTestRule.setContent {
             WordDialog(

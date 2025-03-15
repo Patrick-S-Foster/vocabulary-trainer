@@ -125,11 +125,7 @@ fun WordDialog(
                     }
                 }
 
-                if (displayDefinitions &&
-                    word.definitionWordSourceUrl != null &&
-                    word.definitionWordLicenseUrl != null &&
-                    word.definitionWordLicenseName != null
-                ) {
+                if (displayDefinitions) {
                     Text(
                         modifier = Modifier.testTag("WordDialogDefinitionCredit"),
                         text = buildAnnotatedString {
