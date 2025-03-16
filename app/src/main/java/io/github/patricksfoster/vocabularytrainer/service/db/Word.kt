@@ -10,6 +10,7 @@ import kotlinx.serialization.Serializable
 data class Word(
     @ColumnInfo(name = "category") val category: String,
     @ColumnInfo(name = "word") val word: String,
+    @ColumnInfo(name = "lexical_category") val lexicalCategory: String,
     @ColumnInfo(name = "phonetic_text") val phoneticText: String,
     @ColumnInfo(name = "phonetic_audio_url") val phoneticAudioUrl: String?,
     @ColumnInfo(name = "phonetic_audio_source_url") val phoneticAudioSourceUrl: String?,
