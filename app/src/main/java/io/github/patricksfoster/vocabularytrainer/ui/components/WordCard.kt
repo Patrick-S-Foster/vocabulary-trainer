@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.core.graphics.ColorUtils
 import com.example.vocabularytrainer.R
 import io.github.patricksfoster.vocabularytrainer.service.db.Word
@@ -133,11 +134,22 @@ fun WordCard(
                     }
                 }
                 Column(verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.word_card_word_phonetic_spacing))) {
-                    Text(
-                        text = word?.word ?: "",
-                        style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier.testTag("WordCardWord")
-                    )
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.word_card_lexical_spacing)),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = word?.word ?: "",
+                            style = MaterialTheme.typography.titleMedium,
+                            modifier = Modifier.testTag("WordCardWord")
+                        )
+                        Text(
+                            text = word?.lexicalCategory ?: "",
+                            style = MaterialTheme.typography.bodySmall,
+                            fontStyle = FontStyle.Italic,
+                            modifier = Modifier.testTag("WordCardLexicalCategory")
+                        )
+                    }
                     Text(
                         text = word?.phoneticText ?: "",
                         style = MaterialTheme.typography.bodySmall,
