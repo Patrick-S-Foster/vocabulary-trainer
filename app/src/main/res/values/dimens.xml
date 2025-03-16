@@ -9,6 +9,7 @@
     <dimen name="card_vertical_padding">15dp</dimen>
     <dimen name="word_card_language_level_padding">15dp</dimen>
     <dimen name="word_card_word_phonetic_spacing">5dp</dimen>
+    <dimen name="word_card_lexical_spacing">12dp</dimen>
     <dimen name="language_floating_action_button_expanded_radius">150dp</dimen>
     <dimen name="divider_horizontal_padding">12dp</dimen>
     <dimen name="titled_content_title_spacing">8dp</dimen>
@@ -31,4 +32,5 @@
     <dimen name="learning_audio_button_icon_size">50dp</dimen>
     <dimen name="learning_audio_button_corner_size">20dp</dimen>
     <dimen name="confirm_dialog_spacing">12dp</dimen>
+    <dimen name="word_dialog_lexical_spacing">16dp</dimen>
 </resources>

@@ -44,6 +44,10 @@ class WordCardTests {
             useUnmergedTree = true
         ).assertExists().assertIsDisplayed()
         composeTestRule.onNodeWithTag(
+            testTag = "WordCardLexicalCategory",
+            useUnmergedTree = true
+        ).assertExists().assertIsDisplayed()
+        composeTestRule.onNodeWithTag(
             testTag = "WordCardPhonetic",
             useUnmergedTree = true
         ).assertExists().assertIsDisplayed()
@@ -88,6 +92,10 @@ class WordCardTests {
             useUnmergedTree = true
         ).assertExists().assertIsDisplayed()
         composeTestRule.onNodeWithTag(
+            testTag = "WordCardLexicalCategory",
+            useUnmergedTree = true
+        ).assertExists().assertIsDisplayed()
+        composeTestRule.onNodeWithTag(
             testTag = "WordCardPhonetic",
             useUnmergedTree = true
         ).assertExists().assertIsDisplayed()
@@ -129,6 +137,10 @@ class WordCardTests {
         ).assertDoesNotExist()
         composeTestRule.onNodeWithTag(
             testTag = "WordCardWord",
+            useUnmergedTree = true
+        ).assertExists().assertIsDisplayed()
+        composeTestRule.onNodeWithTag(
+            testTag = "WordCardLexicalCategory",
             useUnmergedTree = true
         ).assertExists().assertIsDisplayed()
         composeTestRule.onNodeWithTag(

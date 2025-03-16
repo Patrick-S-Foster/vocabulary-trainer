@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "267f0d59cad958e0c372f991086db522",
+    "identityHash": "195667b630ada69063037a14d053f9bd",
     "entities": [
       {
         "tableName": "Word",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`category` TEXT NOT NULL, `word` TEXT NOT NULL, `phonetic_text` TEXT NOT NULL, `phonetic_audio_url` TEXT, `phonetic_audio_source_url` TEXT, `phonetic_audio_license_name` TEXT, `phonetic_audio_license_url` TEXT, `definition_one` TEXT NOT NULL, `definition_two` TEXT, `definition_three` TEXT, `definition_word_source_url` TEXT NOT NULL, `definition_word_license_name` TEXT NOT NULL, `definition_word_license_url` TEXT NOT NULL, `study_state` INTEGER NOT NULL, `word_of_the_day_date` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`category` TEXT NOT NULL, `word` TEXT NOT NULL, `lexical_category` TEXT NOT NULL, `phonetic_text` TEXT NOT NULL, `phonetic_audio_url` TEXT, `phonetic_audio_source_url` TEXT, `phonetic_audio_license_name` TEXT, `phonetic_audio_license_url` TEXT, `definition_one` TEXT NOT NULL, `definition_two` TEXT, `definition_three` TEXT, `definition_word_source_url` TEXT NOT NULL, `definition_word_license_name` TEXT NOT NULL, `definition_word_license_url` TEXT NOT NULL, `study_state` INTEGER NOT NULL, `word_of_the_day_date` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
         "fields": [
           {
             "fieldPath": "category",
@@ -17,6 +17,12 @@
           {
             "fieldPath": "word",
             "columnName": "word",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lexicalCategory",
+            "columnName": "lexical_category",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -118,7 +124,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '267f0d59cad958e0c372f991086db522')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '195667b630ada69063037a14d053f9bd')"
     ]
   }
 }
