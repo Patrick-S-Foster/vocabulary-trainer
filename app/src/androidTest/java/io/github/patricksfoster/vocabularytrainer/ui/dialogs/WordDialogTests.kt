@@ -45,6 +45,10 @@ class WordDialogTests {
             useUnmergedTree = true
         ).assertExists().assertIsDisplayed()
         composeTestRule.onNodeWithTag(
+            testTag = "WordDialogLexicalCategory",
+            useUnmergedTree = true
+        ).assertExists().assertIsDisplayed()
+        composeTestRule.onNodeWithTag(
             testTag = "WordDialogCloseButton",
             useUnmergedTree = true
         ).assertExists().assertIsDisplayed()
@@ -98,6 +102,10 @@ class WordDialogTests {
         ).assertExists().assertIsDisplayed()
         composeTestRule.onNodeWithTag(
             testTag = "WordDialogTitle",
+            useUnmergedTree = true
+        ).assertExists().assertIsDisplayed()
+        composeTestRule.onNodeWithTag(
+            testTag = "WordDialogLexicalCategory",
             useUnmergedTree = true
         ).assertExists().assertIsDisplayed()
         composeTestRule.onNodeWithTag(
@@ -157,6 +165,10 @@ class WordDialogTests {
             useUnmergedTree = true
         ).assertExists().assertIsDisplayed()
         composeTestRule.onNodeWithTag(
+            testTag = "WordDialogLexicalCategory",
+            useUnmergedTree = true
+        ).assertExists().assertIsDisplayed()
+        composeTestRule.onNodeWithTag(
             testTag = "WordDialogCloseButton",
             useUnmergedTree = true
         ).assertExists().assertIsDisplayed()
@@ -207,6 +219,10 @@ class WordDialogTests {
         ).assertExists().assertIsDisplayed()
         composeTestRule.onNodeWithTag(
             testTag = "WordDialogTitle",
+            useUnmergedTree = true
+        ).assertExists().assertIsDisplayed()
+        composeTestRule.onNodeWithTag(
+            testTag = "WordDialogLexicalCategory",
             useUnmergedTree = true
         ).assertExists().assertIsDisplayed()
         composeTestRule.onNodeWithTag(

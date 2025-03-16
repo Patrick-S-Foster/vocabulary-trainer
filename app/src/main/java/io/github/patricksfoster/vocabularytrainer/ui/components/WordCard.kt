@@ -134,20 +134,21 @@ fun WordCard(
                     }
                 }
                 Column(verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.word_card_word_phonetic_spacing))) {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.word_card_lexical_spacing)),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
+                    Row(horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.word_card_lexical_spacing))) {
                         Text(
                             text = word?.word ?: "",
                             style = MaterialTheme.typography.titleMedium,
-                            modifier = Modifier.testTag("WordCardWord")
+                            modifier = Modifier
+                                .testTag("WordCardWord")
+                                .alignByBaseline()
                         )
                         Text(
                             text = word?.lexicalCategory ?: "",
                             style = MaterialTheme.typography.bodySmall,
                             fontStyle = FontStyle.Italic,
-                            modifier = Modifier.testTag("WordCardLexicalCategory")
+                            modifier = Modifier
+                                .testTag("WordCardLexicalCategory")
+                                .alignByBaseline()
                         )
                     }
                     Text(

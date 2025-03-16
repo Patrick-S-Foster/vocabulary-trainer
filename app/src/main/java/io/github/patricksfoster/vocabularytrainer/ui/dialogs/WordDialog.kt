@@ -28,6 +28,7 @@ import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.Density
 import com.example.vocabularytrainer.R
@@ -75,11 +76,23 @@ fun WordDialog(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
-                        modifier = Modifier.testTag("WordDialogTitle"),
-                        text = word.word,
-                        style = MaterialTheme.typography.titleLarge
-                    )
+                    Row(horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.word_dialog_lexical_spacing))) {
+                        Text(
+                            modifier = Modifier
+                                .testTag("WordDialogTitle")
+                                .alignByBaseline(),
+                            text = word.word,
+                            style = MaterialTheme.typography.titleLarge
+                        )
+                        Text(
+                            text = word.lexicalCategory,
+                            style = MaterialTheme.typography.titleSmall,
+                            fontStyle = FontStyle.Italic,
+                            modifier = Modifier
+                                .testTag("WordDialogLexicalCategory")
+                                .alignByBaseline()
+                        )
+                    }
 
                     IconButton(
                         onClick = onDismissRequest,
