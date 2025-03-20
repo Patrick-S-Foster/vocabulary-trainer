@@ -37,7 +37,7 @@ import io.github.patricksfoster.vocabularytrainer.ui.content.HomeContent
 import io.github.patricksfoster.vocabularytrainer.ui.content.SettingsContent
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
-import java.time.LocalDateTime
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 private enum class DisplayedContent {
@@ -106,14 +106,14 @@ fun HomeScreen(
             map[languageLevel] = Pair(completedCount, totalCount)
 
             wordOfTheDay = wordDao.getWordOfTheDay(
-                LocalDateTime.now().format(DateTimeFormatter.BASIC_ISO_DATE)
+                LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE)
             )
 
             if (wordOfTheDay == null) {
                 wordOfTheDay = wordDao.getRandomWord()
 
                 wordOfTheDay!!.wordOfTheDayDate =
-                    LocalDateTime.now().format(DateTimeFormatter.BASIC_ISO_DATE)
+                    LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE)
                 wordDao.updateAll(wordOfTheDay!!)
             }
         }
