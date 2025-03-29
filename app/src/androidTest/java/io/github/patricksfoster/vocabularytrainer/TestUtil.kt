@@ -9,6 +9,7 @@ class TestUtil private constructor() {
         fun createWord(
             category: String = LanguageLevel.A1.title,
             word: String = "word",
+            lexicalCategory: String = "lexical_category",
             phoneticText: String = "/wɜːd/",
             phoneticAudioUrl: String? = null,
             phoneticAudioSourceUrl: String? = null,
@@ -26,6 +27,7 @@ class TestUtil private constructor() {
         ): Word = Word(
             category = category,
             word = word,
+            lexicalCategory = lexicalCategory,
             phoneticText = phoneticText,
             phoneticAudioUrl = phoneticAudioUrl,
             phoneticAudioSourceUrl = phoneticAudioSourceUrl,
