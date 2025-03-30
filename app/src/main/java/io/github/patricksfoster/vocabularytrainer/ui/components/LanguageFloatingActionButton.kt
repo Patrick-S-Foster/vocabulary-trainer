@@ -45,6 +45,7 @@ fun LanguageFloatingActionButton(
             )
             .testTag("FloatingActionButtonOuterBox")
     ) {
+        // These buttons are behind the main floating action button so they are hidden when the button is not expanded
         for ((index, languageLevel) in LanguageLevel.entries.withIndex()) {
             val angle = Math.toRadians(index * 90.0 / (LanguageLevel.entries.size - 1))
 
