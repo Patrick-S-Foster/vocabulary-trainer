@@ -44,22 +44,37 @@ import io.github.patricksfoster.vocabularytrainer.ui.theme.VocabularyTrainerThem
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
+/**
+ * This is the entry point for the application.
+ */
 class MainActivity : ComponentActivity() {
 
     companion object {
+        /**
+         * The data store used to store the settings data.
+         */
         private val Context.settings: DataStore<Preferences> by preferencesDataStore(name = "settings")
     }
 
+    /**
+     * The word dao used to interact with the SQLite database.
+     */
     private val wordDao: WordDao by lazy {
         Room.databaseBuilder(applicationContext, WordDatabase::class.java, WordDatabase.NAME)
-            .createFromAsset(WordDatabase.ASSET_NAME)
+            .createFromAsset(WordDatabase.ASSET_NAME) // This line loads the pre-populated database, and uses it to initialize the new database
             .build()
             .wordDao()
     }
 
+    /**
+     * Used for navigation using the nav controller.
+     */
     @Serializable
     private object Home
 
+    /**
+     * Used for navigation using the nav controller.
+     */
     @Serializable
     private class Learning
 
@@ -73,6 +88,7 @@ class MainActivity : ComponentActivity() {
             val languageLevel = rememberSaveable { mutableStateOf(LanguageLevel.A1) }
 
             val settings = rememberSaveable(
+                // This saver enables the settings to be stored on re-compose (e.g. orientation change) and prevents color flickering
                 saver = Saver(
                     save = {
                         Pair(it.soundEffectsEnabled.value, it.themeState.value)
@@ -94,6 +110,7 @@ class MainActivity : ComponentActivity() {
             var dialogOpen by rememberSaveable { mutableStateOf(false) }
 
             VocabularyTrainerTheme(
+                // This sets the theme to be dark if the user has selected dark, or the user has selected auto and the system theme is dark
                 darkTheme = settings.themeState.value == ThemeState.DARK || settings.themeState.value == ThemeState.AUTO && isSystemInDarkTheme()
             ) {
                 Scaffold(topBar = {
@@ -107,6 +124,7 @@ class MainActivity : ComponentActivity() {
                         navigateUp = { dialogOpen = true }
                     )
                 }) { innerPadding ->
+                    // This is the core of the navigation between home and learning screens
                     NavHost(navController = navController, startDestination = Home) {
                         composable<Home> {
                             HomeScreen(

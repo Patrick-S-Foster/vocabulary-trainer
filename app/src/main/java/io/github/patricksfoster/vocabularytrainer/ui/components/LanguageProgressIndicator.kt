@@ -24,6 +24,7 @@ fun LanguageProgressIndicator(
     completedCount: Int,
     totalCount: Int
 ) {
+    // This line sets the progress, and prevents a divide-by-zero error, defaulting to zero
     val progress = if (totalCount == 0) 0F else completedCount.toFloat() / totalCount.toFloat()
 
     Box(modifier = modifier.testTag("LanguageProgressIndicatorBox")) {
