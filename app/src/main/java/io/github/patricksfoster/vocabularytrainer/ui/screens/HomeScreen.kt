@@ -98,6 +98,9 @@ fun HomeScreen(
             restore = { mutableStateOf(Json.decodeFromString(it)) })
     ) { mutableStateOf(null) }
 
+    /**
+     * This function handles counting the number of learned words per category, and the word of the day.
+     */
     suspend fun populateMap() {
         for (languageLevel in LanguageLevel.entries) {
             val completedCount = wordDao.getLearnedCount(languageLevel.title)

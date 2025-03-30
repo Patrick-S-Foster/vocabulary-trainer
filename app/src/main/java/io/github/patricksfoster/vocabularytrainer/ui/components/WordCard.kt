@@ -85,6 +85,7 @@ fun WordCard(
         modifier = modifier
             .fillMaxWidth()
             .combinedClickable(
+                // These are the two ways of opening the information dialog
                 onDoubleClick = {
                     dialogOpen = canOpenWordDialog(word, displayDefinitions, displayAudio)
                 },
@@ -182,6 +183,9 @@ fun WordCard(
     }
 }
 
+/**
+ * This function returns true if the word is not null, and at least one of displayDefinitions and displayAudio is true, along with the corresponding data being non-null.
+ */
 private fun canOpenWordDialog(
     word: Word?,
     displayDefinitions: Boolean,
