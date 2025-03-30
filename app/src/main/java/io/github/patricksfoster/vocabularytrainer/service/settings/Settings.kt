@@ -19,10 +19,12 @@ class Settings(
     themeState: Int
 ) {
     companion object {
+        // These keys are used to retrieve values from the data store
         private val soundEffectsKey = booleanPreferencesKey("sound_effects")
         private val themeStateKey = intPreferencesKey("theme")
     }
 
+    // These are the settings values
     val soundEffectsEnabled: MutableState<Boolean> = mutableStateOf(soundEffectsEnabled)
     val themeState: MutableState<Int> = mutableIntStateOf(themeState)
 
